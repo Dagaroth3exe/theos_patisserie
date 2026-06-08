@@ -20,31 +20,39 @@
 
   <!-- ── Navigation ──────────────────────────────────────────── -->
   <nav class="site-nav" id="site-nav">
-    <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex items-center justify-between py-1.5 lg:py-2">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <div class="flex items-center justify-between py-0">
 
         <!-- Logo -->
         <a href="{{ url_for('public.index') }}" class="flex items-center">
           <img src="{{ url_for('static', filename='images/theos-logo.jpg') }}"
                alt="Theos Patisserie"
-               class="h-20 w-auto"
+               class="h-16 w-auto"
                style="mix-blend-mode: multiply;">
         </a>
 
-        <!-- Desktop nav -->
-        <div class="hidden md:flex items-center gap-7">
-          <a href="{{ url_for('public.products') }}" class="nav-link {% if request.endpoint == 'public.products' %}active{% endif %}">Menu</a>
-          <a href="{{ url_for('public.specials') }}" class="nav-link {% if request.endpoint == 'public.specials' %}active{% endif %}">Seasonal</a>
-          <a href="{{ url_for('public.our_story') }}" class="nav-link {% if request.endpoint == 'public.our_story' %}active{% endif %}">Our Story</a>
-          <a href="{{ url_for('public.contact') }}" class="nav-link {% if request.endpoint == 'public.contact' %}active{% endif %}">Contact</a>
+        <!-- Desktop nav — lowercase, light weight, centred -->
+        <div class="hidden md:flex items-center gap-9 lg:gap-12">
+          <a href="{{ url_for('public.products') }}" class="nav-link {% if request.endpoint == 'public.products' %}active{% endif %}">menu</a>
+          <a href="{{ url_for('public.specials') }}" class="nav-link {% if request.endpoint == 'public.specials' %}active{% endif %}">seasonal</a>
+          <a href="{{ url_for('public.our_story') }}" class="nav-link {% if request.endpoint == 'public.our_story' %}active{% endif %}">our story</a>
+          <a href="{{ url_for('public.contact') }}" class="nav-link {% if request.endpoint == 'public.contact' %}active{% endif %}">contact</a>
         </div>
 
-        <!-- CTA + mobile toggle -->
-        <div class="flex items-center gap-3">
-          <a href="{{ url_for('public.order') }}" class="btn-primary font-cormorant italic text-base tracking-widest py-2.5 px-7">Order Now</a>
-          <button class="md:hidden p-2 rounded-lg hover:bg-cream-dark transition-colors" id="mobile-menu-btn" aria-label="Menu">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+        <!-- Minimal CTA + mobile toggle -->
+        <div class="flex items-center gap-5">
+          <a href="{{ url_for('public.order') }}"
+             class="hidden md:inline-flex font-cormorant italic text-sm tracking-[0.18em] text-espresso/70
+                    border-b border-espresso/25 pb-px
+                    hover:text-espresso hover:border-espresso/60
+                    transition-all duration-300">
+            Order Now
+          </a>
+          <!-- vertical rule -->
+          <span class="hidden md:block w-px h-4 bg-espresso/15"></span>
+          <button class="p-1.5 text-espresso/60 hover:text-espresso transition-colors" id="mobile-menu-btn" aria-label="Menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.2">
+              <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/>
             </svg>
           </button>
         </div>
@@ -52,12 +60,13 @@
     </div>
 
     <!-- Mobile menu -->
-    <div class="md:hidden hidden bg-cream border-t border-border" id="mobile-menu">
-      <div class="px-6 py-4 flex flex-col gap-4">
-        <a href="{{ url_for('public.products') }}" class="text-sm font-medium text-espresso/80 hover:text-espresso">Menu</a>
-        <a href="{{ url_for('public.specials') }}" class="text-sm font-medium text-espresso/80 hover:text-espresso">Seasonal</a>
-        <a href="{{ url_for('public.our_story') }}" class="text-sm font-medium text-espresso/80 hover:text-espresso">Our Story</a>
-        <a href="{{ url_for('public.contact') }}" class="text-sm font-medium text-espresso/80 hover:text-espresso">Contact</a>
+    <div class="md:hidden hidden bg-cream border-t border-border/40" id="mobile-menu">
+      <div class="px-6 py-5 flex flex-col gap-4">
+        <a href="{{ url_for('public.products') }}" class="text-sm text-espresso/70 hover:text-espresso tracking-wide">menu</a>
+        <a href="{{ url_for('public.specials') }}" class="text-sm text-espresso/70 hover:text-espresso tracking-wide">seasonal</a>
+        <a href="{{ url_for('public.our_story') }}" class="text-sm text-espresso/70 hover:text-espresso tracking-wide">our story</a>
+        <a href="{{ url_for('public.contact') }}" class="text-sm text-espresso/70 hover:text-espresso tracking-wide">contact</a>
+        <a href="{{ url_for('public.order') }}" class="text-sm font-cormorant italic tracking-widest text-espresso border-b border-espresso/30 pb-px w-fit">Order Now</a>
       </div>
     </div>
   </nav>
@@ -77,7 +86,7 @@
   {% endwith %}
 
   <!-- ── Main content ───────────────────────────────────────── -->
-  <main class="flex-1 pt-24 lg:pt-28">
+  <main class="flex-1 pt-16 lg:pt-18">
     {% block content %}{% endblock %}
   </main>
 

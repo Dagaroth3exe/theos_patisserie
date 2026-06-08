@@ -235,25 +235,29 @@
   /* ── Navbar ─────────────────────────────────────────────── */
   .site-nav {
     @apply fixed top-0 inset-x-0 z-50
-           bg-cream border-b border-border/50
+           bg-cream
            transition-all duration-300;
+    border-bottom: 1px solid transparent;
   }
 
   .site-nav.nav-scrolled {
-    @apply bg-cream shadow-md border-border;
+    @apply bg-cream;
+    border-bottom-color: rgba(232,221,208,0.5);
+    box-shadow: 0 1px 12px rgba(26,18,8,0.06);
   }
 
   .nav-link {
-    @apply text-sm font-medium text-espresso/80 hover:text-espresso
+    @apply text-sm font-normal text-espresso/65 hover:text-espresso
            transition-colors duration-200 relative pb-0.5;
+    letter-spacing: 0.02em;
   }
 
   .nav-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 right-0 h-px bg-espresso;
+    @apply absolute bottom-0 left-0 right-0 h-px bg-espresso/60;
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.35s ease;
   }
 
   .nav-link:hover::after,
