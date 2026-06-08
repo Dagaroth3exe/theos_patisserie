@@ -97,7 +97,7 @@ def _send_order_emails(order):
         mail.send(bakery_msg)
 
         customer_msg = Message(
-            subject="We've received your enquiry — Theo's Patisserie",
+            subject="We've received your enquiry — Theos Patisserie",
             recipients=[order.email],
             html=render_template("emails/order_confirmation.html", order=order),
         )
