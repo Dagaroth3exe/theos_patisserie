@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Admin{% endblock %} — Theo's Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="bg-gray-50 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="w-56 bg-espresso min-h-screen flex flex-col fixed left-0 top-0 z-40 shadow-xl">
+    <div class="px-4 py-4 border-b border-cream/10">
+      <a href="{{ url_for('public.index') }}" class="flex items-center gap-2.5">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+             class="h-8 w-8 flex-shrink-0 text-gold">
+          <circle cx="40" cy="40" r="37" stroke="currentColor" stroke-width="2"/>
+          <circle cx="40" cy="40" r="33.5" stroke="currentColor" stroke-width="0.7"/>
+          <line x1="19.5" y1="52" x2="19.5" y2="25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M19.5,47 C16,45 13,41.5 13.5,38.5 C16.5,41 19,44.5 19.5,47Z" fill="currentColor"/>
+          <path d="M19.5,40.5 C16,38.5 13,35 13.5,32 C16.5,34.5 19,38 19.5,40.5Z" fill="currentColor"/>
+          <path d="M19.5,34 C16,32 13,28.5 13.5,25.5 C16.5,28 19,31.5 19.5,34Z" fill="currentColor"/>
+          <path d="M19.5,44.5 C23,42.5 26,39 25.5,36 C22.5,38.5 20,42 19.5,44.5Z" fill="currentColor"/>
+          <path d="M19.5,38 C23,36 26,32.5 25.5,29.5 C22.5,32 20,35.5 19.5,38Z" fill="currentColor"/>
+          <path d="M19.5,31.5 C23,29.5 26,26 25.5,23 C22.5,25.5 20,29 19.5,31.5Z" fill="currentColor"/>
+          <line x1="60.5" y1="52" x2="60.5" y2="25" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M60.5,47 C64,45 67,41.5 66.5,38.5 C63.5,41 61,44.5 60.5,47Z" fill="currentColor"/>
+          <path d="M60.5,40.5 C64,38.5 67,35 66.5,32 C63.5,34.5 61,38 60.5,40.5Z" fill="currentColor"/>
+          <path d="M60.5,34 C64,32 67,28.5 66.5,25.5 C63.5,28 61,31.5 60.5,34Z" fill="currentColor"/>
+          <path d="M60.5,44.5 C57,42.5 54,39 54.5,36 C57.5,38.5 60,42 60.5,44.5Z" fill="currentColor"/>
+          <path d="M60.5,38 C57,36 54,32.5 54.5,29.5 C57.5,32 60,35.5 60.5,38Z" fill="currentColor"/>
+          <path d="M60.5,31.5 C57,29.5 54,26 54.5,23 C57.5,25.5 60,29 60.5,31.5Z" fill="currentColor"/>
+          <text x="40" y="55" text-anchor="middle"
+                font-family="'Playfair Display',Georgia,serif"
+                font-weight="900" font-size="38" fill="currentColor">T</text>
+        </svg>
+        <div class="flex flex-col leading-none gap-1">
+          <span class="font-serif font-bold text-sm tracking-[0.2em] text-cream uppercase">Theos</span>
+          <span class="text-[7px] tracking-[0.3em] text-cream/40 uppercase">&mdash; Admin &mdash;</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="flex-1 px-3 py-4 flex flex-col gap-1">
+      {% set new_count = new_orders_count if new_orders_count is defined else 0 %}
+      <a href="{{ url_for('admin.dashboard') }}"
+         class="admin-nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        Dashboard
+      </a>
+      <a href="{{ url_for('admin.orders') }}"
+         class="admin-nav-link {% if request.endpoint in ['admin.orders', 'admin.update_order_status'] %}active{% endif %}">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        Orders
+      </a>
+      <a href="{{ url_for('admin.products') }}"
+         class="admin-nav-link {% if 'admin.products' in request.endpoint or 'product' in request.endpoint %}active{% endif %}">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+        </svg>
+        Products
+      </a>
+      <a href="{{ url_for('admin.specials') }}"
+         class="admin-nav-link {% if 'special' in request.endpoint %}active{% endif %}">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+        </svg>
+        Seasonals
+      </a>
+    </nav>
+
+    <div class="px-3 pb-4 border-t border-cream/10 pt-3">
+      <a href="{{ url_for('public.index') }}"
+         class="admin-nav-link text-cream/40 hover:text-cream/60 text-xs">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+        View Site
+      </a>
+      <a href="{{ url_for('admin.logout') }}" class="admin-nav-link text-cream/40 hover:text-red-400 text-xs">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+        </svg>
+        Sign Out
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main content area -->
+  <div class="ml-56 flex-1 flex flex-col min-h-screen">
+
+    <!-- Top bar -->
+    <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+      <h1 class="font-serif text-lg text-espresso">{% block page_title %}Dashboard{% endblock %}</h1>
+      <div class="flex items-center gap-3">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-{{ category if category in ['success','error','warning','info'] else 'info' }} text-sm max-w-xs">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <span class="text-xs text-muted font-cormorant italic">Logged in as admin</span>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <main class="flex-1 p-6">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
+</body>
+</html>

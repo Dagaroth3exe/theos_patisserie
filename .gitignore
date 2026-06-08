@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+venv/
+env/
+.venv/
+.env
+
+# Flask instance folder (contains SQLite DB)
+instance/
+
+# Uploaded product images
+app/static/uploads/
+
+# Tailwind compiled CSS (rebuild from source)
+app/static/css/main.css
+
+# Tailwind CLI binary
+tailwindcss.exe
+tailwindcss
+
+# Node (Tailwind build)
+node_modules/
+package-lock.json
+package.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

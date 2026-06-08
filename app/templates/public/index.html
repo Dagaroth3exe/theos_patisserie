@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section class="relative min-h-screen flex items-center overflow-hidden bg-hero-gradient">
+
+  <!-- Ambient particles -->
+  {% set particles = [
+    {"size": "6px",  "left": "8%",  "top": "15%", "dur": "12s", "delay": "0s",   "color": "rgba(201,168,76,0.3)"},
+    {"size": "4px",  "left": "85%", "top": "20%", "dur": "16s", "delay": "2s",   "color": "rgba(138,122,90,0.25)"},
+    {"size": "8px",  "left": "20%", "top": "70%", "dur": "14s", "delay": "4s",   "color": "rgba(201,168,76,0.2)"},
+    {"size": "5px",  "left": "72%", "top": "60%", "dur": "18s", "delay": "1s",   "color": "rgba(107,122,58,0.2)"},
+    {"size": "7px",  "left": "50%", "top": "10%", "dur": "13s", "delay": "5s",   "color": "rgba(201,168,76,0.25)"},
+    {"size": "3px",  "left": "38%", "top": "80%", "dur": "15s", "delay": "3s",   "color": "rgba(138,122,90,0.3)"},
+  ] %}
+  {% for p in particles %}
+    <span class="particle" style="
+      width: {{ p.size }}; height: {{ p.size }};
+      left: {{ p.left }}; top: {{ p.top }};
+      background: {{ p.color }};
+      animation: petalDrift {{ p.dur }} linear {{ p.delay }} infinite;
+    "></span>
+  {% endfor %}
+
+  <!-- Floating dessert illustrations -->
+  <div class="hero-float-left absolute left-4 lg:left-16 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none hidden lg:block">
+    <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
+      <!-- Macaron shape -->
+      <ellipse cx="80" cy="60" rx="50" ry="28" fill="#c9a84c" opacity="0.6"/>
+      <rect x="30" y="56" width="100" height="10" fill="#a8873a" opacity="0.8"/>
+      <ellipse cx="80" cy="100" rx="50" ry="28" fill="#c9a84c" opacity="0.6"/>
+    </svg>
+  </div>
+  <div class="hero-float-right absolute right-4 lg:right-16 top-1/3 opacity-15 pointer-events-none hidden lg:block">
+    <svg width="120" height="200" viewBox="0 0 120 200" fill="none">
+      <!-- Éclair shape -->
+      <rect x="10" y="80" width="100" height="40" rx="20" fill="#6b7a3a" opacity="0.6"/>
+      <rect x="25" y="70" width="70" height="12" rx="6" fill="#c9a84c" opacity="0.7"/>
+      <circle cx="60" cy="50" r="30" fill="#8a7a5a" opacity="0.4"/>
+    </svg>
+  </div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-24">
+    <p class="section-kicker mb-4 animate-fade-up" style="animation-delay: 0.1s">
+      Artisan Patisserie &nbsp;·&nbsp; Noida &amp; Delhi
+    </p>
+    <h1 class="hero-headline font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-espresso leading-none mb-6">
+      Where Every<br>Bite Is<br><span class="brand-shimmer">Extraordinary</span>
+    </h1>
+    <p class="hero-sub font-cormorant text-xl text-muted leading-relaxed max-w-xl mx-auto mb-10">
+      Handcrafted macarons, éclairs, entremets, and seasonal confections — made with the finest ingredients and a devotion to the art of French patisserie.
+    </p>
+    <div class="hero-cta flex flex-wrap items-center justify-center gap-4">
+      <a href="{{ url_for('public.products') }}" class="btn-primary text-base px-10 py-3.5">Explore Our Menu</a>
+      <a href="{{ url_for('public.order') }}" class="btn-outline text-base px-8 py-3">Place an Enquiry</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce">
+    <span class="text-xs font-cormorant italic text-muted/60 tracking-widest">Scroll</span>
+    <svg class="w-4 h-4 text-muted/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ── Featured Products ──────────────────────────────────────── -->
+<section class="py-20 lg:py-28 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-14">
+      <p class="section-kicker mb-3" data-reveal="kicker">Signature Collection</p>
+      <div class="section-divider"></div>
+      <h2 class="font-serif text-4xl lg:text-5xl text-espresso mt-4" data-reveal="heading">
+        Crafted to Perfection
+      </h2>
+      <p class="text-muted font-cormorant text-lg mt-3 max-w-xl mx-auto">
+        Our most beloved creations — each one a labour of love and the finest French technique.
+      </p>
+    </div>
+
+    {% if featured %}
+      <div class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {% for product in featured %}
+          {% include "public/_product_card.html" %}
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center text-muted font-cormorant text-lg italic">Our menu is coming soon. Check back shortly.</p>
+    {% endif %}
+
+    <div class="text-center mt-12">
+      <a href="{{ url_for('public.products') }}" class="btn-outline text-base px-10 py-3">View Full Menu</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Seasonal Teaser ────────────────────────────────────────── -->
+{% if seasonals %}
+<section class="bg-espresso text-cream py-20 lg:py-24 px-6 overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <div>
+        <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3" data-reveal="kicker">Limited &amp; Seasonal</p>
+        <h2 class="font-serif text-4xl lg:text-5xl text-cream leading-tight mb-5" data-reveal="heading">
+          What's<br>In Season
+        </h2>
+        <p class="font-cormorant text-cream/60 text-lg leading-relaxed mb-8">
+          Crafted for the moment, available while the season lasts. Our seasonal creations celebrate India's festivals, harvests, and celebrations with French finesse.
+        </p>
+        <a href="{{ url_for('public.specials') }}" class="btn-outline-gold">View Seasonal Menu</a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {% for special in seasonals %}
+          <div class="rounded-2xl border border-cream/10 bg-cream/5 p-6 hover:bg-cream/10 transition-colors duration-300">
+            {% if special.image_filename %}
+              <div class="aspect-[4/3] rounded-xl overflow-hidden mb-4">
+                <img src="{{ url_for('static', filename='uploads/products/' ~ special.image_filename) }}"
+                     alt="{{ special.name }}"
+                     class="w-full h-full object-cover" data-reveal="image">
+              </div>
+            {% else %}
+              <div class="aspect-[4/3] rounded-xl bg-cream/10 flex items-center justify-center mb-4">
+                <span class="text-gold text-4xl font-serif">✦</span>
+              </div>
+            {% endif %}
+            <span class="gold-badge mb-2 inline-block">Seasonal</span>
+            <h3 class="font-serif text-cream text-lg leading-snug">{{ special.name }}</h3>
+            {% if special.price %}
+              <p class="text-gold font-semibold mt-1">₹{{ "%.0f"|format(special.price) }}</p>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+
+<!-- ── Category Showcase ──────────────────────────────────────── -->
+<section class="py-16 px-6 border-y border-border">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex gap-6 lg:gap-10 overflow-x-auto scrollbar-hide pb-2 justify-start lg:justify-center">
+      {% set cat_icons = {
+        "Cakes":      "🎂",
+        "Macarons":   "🍪",
+        "Éclairs":    "🥐",
+        "Tarts":      "🥧",
+        "Croissants": "🥐",
+        "Boxes":      "🎁",
+      } %}
+      {% for cat in categories %}
+        <a href="{{ url_for('public.products') }}?cat={{ cat }}"
+           class="flex flex-col items-center gap-2 shrink-0 group">
+          <div class="w-14 h-14 rounded-full bg-cream-dark group-hover:bg-cream-dark/80 flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110 group-hover:shadow-md">
+            {{ cat_icons.get(cat, "✦") }}
+          </div>
+          <span class="text-xs font-cormorant italic text-muted group-hover:text-espresso transition-colors">{{ cat }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ── Brand Story CTA ────────────────────────────────────────── -->
+<section class="py-20 lg:py-28 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <div class="story-section">
+        <p class="section-kicker mb-4" data-reveal="kicker">Our Story</p>
+        <blockquote class="font-cormorant italic text-3xl lg:text-4xl text-espresso leading-snug mb-6 story-text" data-reveal="heading">
+          "Baking is not just what we do — it is who we are."
+        </blockquote>
+        <p class="text-muted leading-relaxed mb-6 story-text">
+          Born from a love of French patisserie and a deep appreciation for India's rich culinary heritage, Theo's Patisserie brings together two worlds in every creation. Our pastry chefs train in classical technique, but their hearts belong to the spice markets of Noida.
+        </p>
+        <p class="text-muted leading-relaxed mb-8 story-text">
+          Every macaron, every éclair, every hand-painted entremet that leaves our kitchen is a testament to this belief — that luxury is not just a price tag, but a feeling.
+        </p>
+        <a href="{{ url_for('public.our_story') }}" class="btn-outline px-8 py-3">Read Our Story</a>
+      </div>
+
+      <div class="relative hidden lg:block">
+        <div class="aspect-[3/4] rounded-3xl bg-gradient-to-br from-cream-dark via-cream to-cream-light overflow-hidden shadow-xl" data-reveal="image">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <!-- Decorative placeholder — replace with real brand photo -->
+            <div class="text-center p-8">
+              <div class="font-serif text-8xl text-espresso/20 mb-4">T</div>
+              <p class="font-cormorant italic text-taupe text-xl">Est. with love &amp; craft</p>
+              <div class="section-divider mt-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

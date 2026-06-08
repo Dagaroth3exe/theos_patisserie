@@ -1,0 +1,70 @@
+{% extends "admin/base.html" %}
+{% block title %}Seasonal Specials{% endblock %}
+{% block page_title %}Seasonal Specials{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <p class="text-sm text-muted">{{ specials|length }} special{{ 's' if specials|length != 1 else '' }}</p>
+  <a href="{{ url_for('admin.new_special') }}" class="btn-primary text-sm py-2 px-5">+ Add Special</a>
+</div>
+
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  {% if specials %}
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-gray-50 border-b border-gray-100">
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Item</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Price</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Period</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Active</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-50">
+        {% for special in specials %}
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-5 py-3">
+              <p class="font-medium text-espresso">{{ special.name }}</p>
+              {% if special.description %}
+                <p class="text-xs text-muted line-clamp-1">{{ special.description }}</p>
+              {% endif %}
+            </td>
+            <td class="px-5 py-3 font-semibold text-espresso">
+              {{ '₹' ~ "%.0f"|format(special.price) if special.price else '—' }}
+            </td>
+            <td class="px-5 py-3 text-xs text-muted">
+              {% if special.available_from and special.available_until %}
+                {{ special.available_from.strftime('%d %b') }} – {{ special.available_until.strftime('%d %b') }}
+              {% else %}
+                Ongoing
+              {% endif %}
+            </td>
+            <td class="px-5 py-3">
+              {% if special.is_active %}
+                <span class="status-fulfilled">Active</span>
+              {% else %}
+                <span class="bg-gray-100 text-gray-500 border border-gray-200 text-xs font-semibold rounded-full px-2.5 py-0.5">Inactive</span>
+              {% endif %}
+            </td>
+            <td class="px-5 py-3">
+              <div class="flex items-center gap-2">
+                <a href="{{ url_for('admin.edit_special', special_id=special.id) }}" class="text-xs text-rust hover:underline">Edit</a>
+                <form method="POST" action="{{ url_for('admin.delete_special', special_id=special.id) }}"
+                      onsubmit="return confirm('Delete {{ special.name }}?')">
+                  {{ delete_form.hidden_tag() }}
+                  <button type="submit" class="text-xs text-gray-400 hover:text-red-500 transition-colors">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="px-5 py-12 text-center">
+      <p class="text-muted font-cormorant italic mb-4">No seasonal specials yet.</p>
+      <a href="{{ url_for('admin.new_special') }}" class="btn-primary text-sm px-6 py-2">Add Special</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

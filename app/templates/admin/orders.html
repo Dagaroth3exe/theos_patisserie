@@ -1,0 +1,87 @@
+{% extends "admin/base.html" %}
+{% block title %}Orders{% endblock %}
+{% block page_title %}Enquiries & Orders{% endblock %}
+
+{% block content %}
+<!-- Filter tabs -->
+<div class="flex gap-2 mb-6 flex-wrap">
+  <a href="{{ url_for('admin.orders') }}"
+     class="text-xs px-4 py-2 rounded-full border transition-colors
+            {{ 'bg-espresso text-cream border-espresso' if not status_filter else 'border-gray-300 text-muted hover:border-espresso hover:text-espresso' }}">
+    All
+  </a>
+  {% for s in ['new', 'contacted', 'fulfilled'] %}
+    <a href="{{ url_for('admin.orders') }}?status={{ s }}"
+       class="text-xs px-4 py-2 rounded-full border transition-colors
+              {{ 'bg-espresso text-cream border-espresso' if status_filter == s else 'border-gray-300 text-muted hover:border-espresso hover:text-espresso' }}">
+      {{ s|title }}
+    </a>
+  {% endfor %}
+</div>
+
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  {% if orders %}
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-gray-50 border-b border-gray-100">
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">#</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Customer</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Contact</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Occasion</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Delivery</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Status</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-50">
+        {% for order in orders %}
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-5 py-3 text-muted text-xs">{{ order.id }}</td>
+            <td class="px-5 py-3">
+              <p class="font-medium text-espresso">{{ order.customer_name }}</p>
+              <p class="text-xs text-muted">{{ order.created_at.strftime('%d %b %Y, %H:%M') }}</p>
+            </td>
+            <td class="px-5 py-3">
+              <p class="text-espresso">{{ order.email }}</p>
+              <p class="text-muted text-xs">{{ order.phone }}</p>
+            </td>
+            <td class="px-5 py-3 text-muted text-xs max-w-[120px] truncate" title="{{ order.occasion }}">{{ order.occasion or '—' }}</td>
+            <td class="px-5 py-3 text-muted text-xs">{{ order.delivery_date.strftime('%d %b') if order.delivery_date else '—' }}</td>
+            <td class="px-5 py-3">
+              <span class="status-{{ order.status.value }}">{{ order.status.value|title }}</span>
+            </td>
+            <td class="px-5 py-3">
+              <form method="POST" action="{{ url_for('admin.update_order_status', order_id=order.id) }}" class="flex gap-1">
+                {{ delete_form.hidden_tag() }}
+                {% for s in ['new', 'contacted', 'fulfilled'] %}
+                  {% if s != order.status.value %}
+                    <button type="submit" name="status" value="{{ s }}"
+                            class="text-xs px-2.5 py-1 rounded-full border border-gray-300 hover:border-espresso hover:text-espresso transition-colors">
+                      → {{ s|title }}
+                    </button>
+                  {% endif %}
+                {% endfor %}
+              </form>
+              {% if order.special_requirements or order.product_preferences %}
+                <details class="mt-2">
+                  <summary class="text-xs text-rust cursor-pointer">See details</summary>
+                  <div class="mt-2 text-xs text-muted bg-gray-50 rounded-lg p-2 space-y-1">
+                    {% if order.product_preferences %}
+                      <p><strong>Preferences:</strong> {{ order.product_preferences }}</p>
+                    {% endif %}
+                    {% if order.special_requirements %}
+                      <p><strong>Special req:</strong> {{ order.special_requirements }}</p>
+                    {% endif %}
+                  </div>
+                </details>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="px-5 py-12 text-muted font-cormorant italic text-center">No orders found for this filter.</p>
+  {% endif %}
+</div>
+{% endblock %}

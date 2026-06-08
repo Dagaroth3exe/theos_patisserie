@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Seasonal Specials{% endblock %}
+
+{% block content %}
+<div class="pt-8">
+
+  <!-- Page header -->
+  <div class="bg-espresso text-cream py-20 px-6 text-center relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-espresso via-espresso-light to-espresso opacity-80"></div>
+    <div class="relative z-10">
+      <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3">Limited Time</p>
+      <div class="w-16 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto my-4"></div>
+      <h1 class="font-serif text-5xl lg:text-6xl text-cream font-bold mb-4" data-reveal="heading">
+        Seasonal Specials
+      </h1>
+      <p class="font-cormorant text-cream/60 text-lg max-w-xl mx-auto">
+        Crafted for the moment. Available while the season lasts — each special celebrates India's festivals and harvests with French finesse.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 py-16">
+    {% if specials %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for special in specials %}
+          <div class="card hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden">
+            <!-- Image -->
+            <div class="aspect-[4/3] overflow-hidden">
+              {% if special.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/products/' ~ special.image_filename) }}"
+                     alt="{{ special.name }}"
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                     data-reveal="image">
+              {% else %}
+                <div class="w-full h-full bg-gradient-to-br from-espresso via-espresso-light to-espresso flex items-center justify-center">
+                  <span class="text-gold text-5xl font-serif">✦</span>
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Content -->
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="gold-badge">Seasonal Special</span>
+                {% if special.available_until %}
+                  <span class="text-xs text-muted font-cormorant italic">
+                    Until {{ special.available_until.strftime('%d %b') }}
+                  </span>
+                {% endif %}
+              </div>
+              <h3 class="font-serif text-xl text-espresso mb-2">{{ special.name }}</h3>
+              {% if special.description %}
+                <p class="text-muted text-sm leading-relaxed mb-4">{{ special.description }}</p>
+              {% endif %}
+              <div class="flex items-center justify-between pt-3 border-t border-border">
+                {% if special.price %}
+                  <span class="font-bold text-espresso text-lg">₹{{ "%.0f"|format(special.price) }}</span>
+                {% else %}
+                  <span class="text-muted text-sm font-cormorant italic">Price on enquiry</span>
+                {% endif %}
+                <a href="{{ url_for('public.order') }}"
+                   class="btn-outline text-sm py-2 px-5">Enquire</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <div class="text-center py-24">
+        <div class="text-6xl font-serif text-muted/20 mb-4">✦</div>
+        <h3 class="font-serif text-2xl text-espresso mb-3">Nothing Seasonal Just Yet</h3>
+        <p class="text-muted font-cormorant text-lg italic mb-8">
+          Our seasonal menu is being curated. Check back soon for festive and limited-edition creations.
+        </p>
+        <a href="{{ url_for('public.products') }}" class="btn-primary px-8 py-3">Browse Our Regular Menu</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Our Story{% endblock %}
+
+{% block content %}
+<div class="pt-8">
+
+  <!-- Hero -->
+  <div class="bg-cream-dark/40 border-b border-border py-20 px-6 text-center">
+    <p class="section-kicker mb-3">Est. with love &amp; craft</p>
+    <div class="section-divider"></div>
+    <h1 class="font-serif text-5xl lg:text-6xl text-espresso mt-4 font-bold" data-reveal="heading">Our Story</h1>
+    <p class="font-cormorant text-muted text-xl mt-3 max-w-xl mx-auto italic">
+      A love letter to French patisserie, written in India.
+    </p>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-6 py-20">
+
+    <!-- Opening quote -->
+    <blockquote class="text-center mb-20">
+      <p class="font-cormorant italic text-3xl lg:text-4xl text-espresso leading-relaxed mb-4">
+        "Baking is not just what we do — it is who we are."
+      </p>
+      <div class="section-divider"></div>
+      <cite class="text-muted text-sm font-cormorant italic not-italic mt-4 block">— Theo's Patisserie</cite>
+    </blockquote>
+
+    <!-- Story sections -->
+    <div class="flex flex-col gap-20">
+
+      <div class="story-section grid lg:grid-cols-2 gap-10 items-center">
+        <div class="story-text">
+          <p class="section-kicker mb-3">The Beginning</p>
+          <h2 class="font-serif text-3xl text-espresso mb-4" data-reveal="heading">Born from a Passion</h2>
+          <p class="text-muted leading-relaxed">
+            Theo's Patisserie was founded on the belief that world-class pastry doesn't need to be flown in from Paris. Our pastry chefs trained in classical French technique and brought that knowledge home — to Noida, to Delhi, to India.
+          </p>
+          <p class="text-muted leading-relaxed mt-4">
+            What started as a small patisserie in Sector 39, Noida, quickly grew into something bigger — a destination for those who believe that food can be both an art and an act of love.
+          </p>
+        </div>
+        <div class="rounded-3xl bg-gradient-to-br from-cream-dark via-cream to-cream-light aspect-[4/3] flex items-center justify-center shadow-lg" data-reveal="image">
+          <div class="text-center">
+            <div class="font-serif text-7xl brand-shimmer mb-2">Theo's</div>
+            <p class="font-cormorant italic text-taupe">Noida &amp; Delhi</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-section grid lg:grid-cols-2 gap-10 items-center">
+        <div class="rounded-3xl bg-gradient-to-br from-espresso via-espresso-light to-espresso aspect-[4/3] flex items-center justify-center shadow-lg order-2 lg:order-1" data-reveal="image">
+          <div class="text-center text-cream">
+            <span class="text-gold text-5xl">✦</span>
+            <p class="font-cormorant italic text-cream/70 mt-3 text-lg">The Art of Patisserie</p>
+          </div>
+        </div>
+        <div class="story-text order-1 lg:order-2">
+          <p class="section-kicker mb-3">Our Philosophy</p>
+          <h2 class="font-serif text-3xl text-espresso mb-4" data-reveal="heading">Luxury in Every Bite</h2>
+          <p class="text-muted leading-relaxed">
+            We believe luxury is not just a price point — it's a feeling. The weight of a perfectly tempered chocolate box in your hands. The first crack of a caramelised tart shell. The way a macaron gives way to reveal a perfectly flavoured ganache.
+          </p>
+          <p class="text-muted leading-relaxed mt-4">
+            Every item in our display case is made in-house, by hand, every single day. No frozen doughs, no shortcuts — just technique, time, and an obsessive attention to quality.
+          </p>
+        </div>
+      </div>
+
+      <div class="story-section grid lg:grid-cols-2 gap-10 items-center">
+        <div class="story-text">
+          <p class="section-kicker mb-3">India &amp; France</p>
+          <h2 class="font-serif text-3xl text-espresso mb-4" data-reveal="heading">Two Worlds, One Kitchen</h2>
+          <p class="text-muted leading-relaxed">
+            What makes Theo's truly ours is the way we weave India into French forms. A Saffron Citrus Tart. A Kashmiri Walnut Opera Cake. A Mango Cardamom Macaron that tastes like summer in Noida.
+          </p>
+          <p class="text-muted leading-relaxed mt-4">
+            We celebrate Indian flavours without apology — because the finest patisserie in the world should taste exactly like where it was made.
+          </p>
+        </div>
+        <div class="rounded-3xl bg-gradient-to-br from-gold/20 via-cream to-cream-dark aspect-[4/3] flex items-center justify-center shadow-lg" data-reveal="image">
+          <div class="text-center">
+            <p class="font-cormorant italic text-espresso text-2xl">India × France</p>
+            <div class="section-divider mt-3"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-20 text-center bg-espresso rounded-3xl px-8 py-14">
+      <p class="font-cormorant italic text-gold text-sm tracking-widest uppercase mb-3">Experience It Yourself</p>
+      <h3 class="font-serif text-3xl text-cream mb-4">Visit Us or Place an Enquiry</h3>
+      <p class="text-cream/60 mb-8 max-w-md mx-auto">
+        Come into any of our outlets, or get in touch to place a custom order for your next occasion.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="{{ url_for('public.order') }}" class="btn-gold px-8 py-3">Place an Enquiry</a>
+        <a href="{{ url_for('public.contact') }}" class="btn-outline-gold px-8 py-3">Contact Us</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

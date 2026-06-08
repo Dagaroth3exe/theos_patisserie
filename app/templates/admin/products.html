@@ -1,0 +1,77 @@
+{% extends "admin/base.html" %}
+{% block title %}Products{% endblock %}
+{% block page_title %}Products{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-between mb-6">
+  <p class="text-sm text-muted">{{ products|length }} product{{ 's' if products|length != 1 else '' }} total</p>
+  <a href="{{ url_for('admin.new_product') }}" class="btn-primary text-sm py-2 px-5">+ Add Product</a>
+</div>
+
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  {% if products %}
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-gray-50 border-b border-gray-100">
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Product</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Category</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Price</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Status</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-50">
+        {% for product in products %}
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-5 py-3">
+              <div class="flex items-center gap-3">
+                {% if product.image_filename %}
+                  <img src="{{ url_for('static', filename='uploads/products/' ~ product.image_filename) }}"
+                       class="w-10 h-10 rounded-lg object-cover" alt="">
+                {% else %}
+                  <div class="w-10 h-10 rounded-lg bg-cream-dark flex items-center justify-center">
+                    <span class="font-serif text-sm text-muted/40">{{ product.name[0] }}</span>
+                  </div>
+                {% endif %}
+                <div>
+                  <p class="font-medium text-espresso">{{ product.name }}</p>
+                  {% if product.is_featured %}
+                    <span class="gold-badge text-xs">Signature</span>
+                  {% endif %}
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-3">
+              <span class="category-pill">{{ product.category.value }}</span>
+            </td>
+            <td class="px-5 py-3 font-semibold text-espresso">₹{{ "%.0f"|format(product.price) }}</td>
+            <td class="px-5 py-3">
+              {% if product.is_available %}
+                <span class="status-fulfilled text-xs">Available</span>
+              {% else %}
+                <span class="bg-gray-100 text-gray-500 border border-gray-200 text-xs font-semibold rounded-full px-2.5 py-0.5">Hidden</span>
+              {% endif %}
+            </td>
+            <td class="px-5 py-3">
+              <div class="flex items-center gap-2">
+                <a href="{{ url_for('admin.edit_product', product_id=product.id) }}"
+                   class="text-xs text-rust hover:underline">Edit</a>
+                <form method="POST" action="{{ url_for('admin.delete_product', product_id=product.id) }}"
+                      onsubmit="return confirm('Delete {{ product.name }}?')">
+                  {{ delete_form.hidden_tag() }}
+                  <button type="submit" class="text-xs text-gray-400 hover:text-red-500 transition-colors">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="px-5 py-12 text-center">
+      <p class="text-muted font-cormorant italic mb-4">No products yet. Add your first one!</p>
+      <a href="{{ url_for('admin.new_product') }}" class="btn-primary text-sm px-6 py-2">Add Product</a>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

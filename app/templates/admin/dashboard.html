@@ -1,0 +1,60 @@
+{% extends "admin/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<!-- Stats cards -->
+<div class="grid grid-cols-3 gap-5 mb-8">
+  <div class="bg-white rounded-xl border border-gray-200 p-5">
+    <p class="text-xs text-muted uppercase tracking-widest mb-1">New Enquiries</p>
+    <p class="font-serif text-4xl text-espresso font-bold">{{ new_orders_count }}</p>
+    <a href="{{ url_for('admin.orders') }}?status=new" class="text-xs text-rust hover:underline mt-2 inline-block">View →</a>
+  </div>
+  <div class="bg-white rounded-xl border border-gray-200 p-5">
+    <p class="text-xs text-muted uppercase tracking-widest mb-1">Products</p>
+    <p class="font-serif text-4xl text-espresso font-bold">{{ total_products }}</p>
+    <a href="{{ url_for('admin.products') }}" class="text-xs text-rust hover:underline mt-2 inline-block">Manage →</a>
+  </div>
+  <div class="bg-white rounded-xl border border-gray-200 p-5">
+    <p class="text-xs text-muted uppercase tracking-widest mb-1">Active Specials</p>
+    <p class="font-serif text-4xl text-espresso font-bold">{{ active_specials }}</p>
+    <a href="{{ url_for('admin.specials') }}" class="text-xs text-rust hover:underline mt-2 inline-block">View →</a>
+  </div>
+</div>
+
+<!-- Recent orders -->
+<div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+  <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+    <h2 class="font-serif text-base text-espresso">Recent Enquiries</h2>
+    <a href="{{ url_for('admin.orders') }}" class="text-xs text-rust hover:underline">View all →</a>
+  </div>
+  {% if recent_orders %}
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="bg-gray-50 border-b border-gray-100">
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">#</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Customer</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Email</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Date</th>
+          <th class="text-left px-5 py-3 text-xs font-semibold text-muted uppercase tracking-wide">Status</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-50">
+        {% for order in recent_orders %}
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-5 py-3 text-muted text-xs">{{ order.id }}</td>
+            <td class="px-5 py-3 font-medium text-espresso">{{ order.customer_name }}</td>
+            <td class="px-5 py-3 text-muted">{{ order.email }}</td>
+            <td class="px-5 py-3 text-muted text-xs">{{ order.created_at.strftime('%d %b %Y') }}</td>
+            <td class="px-5 py-3">
+              <span class="status-{{ order.status.value }}">{{ order.status.value|title }}</span>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="px-5 py-8 text-muted font-cormorant italic text-center">No enquiries yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

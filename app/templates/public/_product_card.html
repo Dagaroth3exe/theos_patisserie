@@ -1,0 +1,33 @@
+<article class="product-card{% if product.is_featured %} is-featured{% endif %}">
+  <!-- Image -->
+  <div class="overflow-hidden aspect-[4/3]">
+    {% if product.image_filename %}
+      <img class="card-img w-full h-full object-cover"
+           src="{{ url_for('static', filename='uploads/products/' ~ product.image_filename) }}"
+           alt="{{ product.name }}" loading="lazy">
+    {% else %}
+      <div class="card-img w-full h-full img-placeholder">
+        <span class="font-serif text-3xl text-muted/30">{{ product.name[0] }}</span>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Content -->
+  <div class="p-5 relative z-10">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="category-pill">{{ product.category.value }}</span>
+      {% if product.is_featured %}
+        <span class="gold-badge">Signature</span>
+      {% endif %}
+    </div>
+    <h3 class="font-serif text-lg text-espresso leading-snug mb-1">{{ product.name }}</h3>
+    {% if product.description %}
+      <p class="text-muted text-sm leading-relaxed line-clamp-2 mb-4">{{ product.description }}</p>
+    {% endif %}
+    <div class="flex items-center justify-between">
+      <span class="font-semibold text-espresso text-base">₹{{ "%.0f"|format(product.price) }}</span>
+      <a href="{{ url_for('public.order') }}?product={{ product.slug }}"
+         class="btn-outline text-xs py-1.5 px-4">Enquire</a>
+    </div>
+  </div>
+</article>

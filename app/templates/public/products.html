@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Our Menu{% endblock %}
+
+{% block content %}
+<div class="pt-8">
+
+  <!-- Page header -->
+  <div class="bg-cream-dark/40 border-b border-border py-16 px-6 text-center">
+    <p class="section-kicker mb-3" data-reveal="kicker">The Full Collection</p>
+    <div class="section-divider"></div>
+    <h1 class="font-serif text-4xl lg:text-5xl text-espresso mt-4" data-reveal="heading">Our Menu</h1>
+    <p class="font-cormorant text-muted text-lg mt-3 max-w-lg mx-auto">
+      Every item crafted in-house by our pastry chefs. All prices are per piece unless stated.
+    </p>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 py-14">
+
+    <!-- Category filter -->
+    <div class="flex flex-wrap gap-2 justify-center mb-10" id="category-filters">
+      <button class="category-filter-btn active-filter btn-primary text-xs py-2 px-5" data-filter="all">All</button>
+      {% for cat in categories %}
+        <button class="category-filter-btn btn-outline text-xs py-2 px-5" data-filter="{{ cat }}">{{ cat }}</button>
+      {% endfor %}
+    </div>
+
+    <!-- Products grid -->
+    {% if products %}
+      <div class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for product in products %}
+          <article class="product-card{% if product.is_featured %} is-featured{% endif %}"
+                   data-category="{{ product.category.value }}">
+            <div class="overflow-hidden aspect-[4/3]">
+              {% if product.image_filename %}
+                <img class="card-img w-full h-full object-cover"
+                     src="{{ url_for('static', filename='uploads/products/' ~ product.image_filename) }}"
+                     alt="{{ product.name }}" loading="lazy">
+              {% else %}
+                <div class="card-img w-full h-full img-placeholder">
+                  <span class="font-serif text-3xl text-muted/30">{{ product.name[0] }}</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="p-5 relative z-10">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="category-pill">{{ product.category.value }}</span>
+                {% if product.is_featured %}
+                  <span class="gold-badge">Signature</span>
+                {% endif %}
+              </div>
+              <h3 class="font-serif text-base text-espresso leading-snug mb-1">{{ product.name }}</h3>
+              {% if product.description %}
+                <p class="text-muted text-xs leading-relaxed line-clamp-2 mb-3">{{ product.description }}</p>
+              {% endif %}
+              <div class="flex items-center justify-between">
+                <span class="font-semibold text-espresso">₹{{ "%.0f"|format(product.price) }}</span>
+                <a href="{{ url_for('public.order') }}?product={{ product.slug }}"
+                   class="btn-outline text-xs py-1.5 px-4">Enquire</a>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <!-- No results message (shown by JS when filter returns nothing) -->
+      <p id="no-results" class="hidden text-center text-muted font-cormorant italic text-lg py-16">
+        No items in this category yet. Check back soon!
+      </p>
+    {% else %}
+      <p class="text-center text-muted font-cormorant text-lg italic py-16">
+        Our menu is currently being updated. Please check back shortly.
+      </p>
+    {% endif %}
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+  .active-filter {
+    @apply bg-espresso text-cream-light;
+  }
+  .category-filter-btn.active-filter {
+    background-color: #2b1d1a;
+    color: #fffdfa;
+    border-color: #2b1d1a;
+  }
+</style>
+{% endblock %}

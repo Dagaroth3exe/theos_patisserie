@@ -1,0 +1,78 @@
+{% extends "admin/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl">
+  <a href="{{ url_for('admin.products') }}" class="text-xs text-muted hover:text-espresso transition-colors inline-flex items-center gap-1 mb-6">
+    ← Back to Products
+  </a>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-6">
+    <form method="POST" enctype="multipart/form-data" novalidate>
+      {{ form.hidden_tag() }}
+
+      <div class="grid sm:grid-cols-2 gap-5">
+
+        <div class="sm:col-span-2">
+          {{ form.name.label(class_="form-label") }}
+          {{ form.name(class_="form-input") }}
+          {% for e in form.name.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+        </div>
+
+        <div class="sm:col-span-2">
+          {{ form.description.label(class_="form-label") }}
+          {{ form.description(class_="form-input resize-none", rows=4) }}
+        </div>
+
+        <div>
+          {{ form.price.label(class_="form-label") }}
+          {{ form.price(class_="form-input") }}
+          {% for e in form.price.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+        </div>
+
+        <div>
+          {{ form.category.label(class_="form-label") }}
+          {{ form.category(class_="form-input") }}
+        </div>
+
+        <div class="sm:col-span-2">
+          {{ form.allergens.label(class_="form-label") }}
+          {{ form.allergens(class_="form-input") }}
+        </div>
+
+        <!-- Image -->
+        <div class="sm:col-span-2">
+          {{ form.image.label(class_="form-label") }}
+          {% if product and product.image_filename %}
+            <div class="flex items-center gap-3 mb-2">
+              <img src="{{ url_for('static', filename='uploads/products/' ~ product.image_filename) }}"
+                   class="w-16 h-16 rounded-lg object-cover" alt="Current image">
+              <p class="text-xs text-muted">Current image. Upload a new one to replace it.</p>
+            </div>
+          {% endif %}
+          {{ form.image(class_="form-input text-sm") }}
+          {% for e in form.image.errors %}<p class="form-error">{{ e }}</p>{% endfor %}
+        </div>
+
+        <!-- Toggles -->
+        <div class="flex items-center gap-2">
+          {{ form.is_available(class_="w-4 h-4 accent-espresso") }}
+          {{ form.is_available.label(class_="text-sm text-espresso") }}
+        </div>
+
+        <div class="flex items-center gap-2">
+          {{ form.is_featured(class_="w-4 h-4 accent-gold") }}
+          {{ form.is_featured.label(class_="text-sm text-espresso") }}
+        </div>
+
+      </div>
+
+      <div class="flex gap-3 mt-6 pt-5 border-t border-gray-100">
+        {{ form.submit(class_="btn-primary text-sm py-2.5 px-6 cursor-pointer") }}
+        <a href="{{ url_for('admin.products') }}" class="btn-outline text-sm py-2.5 px-5">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
