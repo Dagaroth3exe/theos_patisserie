@@ -1,1 +1,2 @@
 # theos_patisserie
+Theo's Patisserie is a full-stack luxury bakery website crafted for a high-end artisanal patisserie brand based in India. The site combines a refined editorial design with functional e-commerce capabilities — including a product catalogue, custom order flow, seasonal specials, and a brand story section. Built with a focus on performance, elegant UI, and a seamless user experience that reflects the premium nature of the brand.
