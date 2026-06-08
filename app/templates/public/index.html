@@ -14,7 +14,7 @@
     <source src="{{ url_for('static', filename='images/video-showcase.mp4') }}" type="video/mp4">
   </video>
   <!-- Gradient overlay: darker at bottom so text reads cleanly -->
-  <div class="absolute inset-0 z-10" style="background: linear-gradient(to bottom, rgba(26,18,8,0.58) 0%, rgba(26,18,8,0.52) 60%, rgba(26,18,8,0.72) 100%);"></div>
+  <div class="absolute inset-0 z-10" style="background: linear-gradient(to bottom, rgba(26,18,8,0.42) 0%, rgba(26,18,8,0.38) 60%, rgba(26,18,8,0.58) 100%);"></div>
 
   <!-- Ambient gold particles (brighter against dark bg) -->
   {% set particles = [
@@ -185,26 +185,41 @@
 </section>
 
 
-<!-- ── Photo Gallery Strip ────────────────────────────────────── -->
-<section class="py-14 px-6">
+<!-- ── Inside Theos — editorial full-bleed interior ──────────── -->
+<section class="py-16 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <div class="overflow-hidden rounded-3xl shadow-lg" style="height: 520px;">
+      <img src="{{ url_for('static', filename='images/img-interior-wide.jpg') }}"
+           class="w-full h-full object-cover object-center hover:scale-[1.02] transition-transform duration-1000 ease-in-out"
+           alt="Inside Theos Patisserie" loading="lazy">
+    </div>
+    <p class="font-cormorant italic text-taupe text-sm text-center mt-4 tracking-widest">
+      Inside Theo's &nbsp;·&nbsp; Sector 39, Noida
+    </p>
+  </div>
+</section>
+
+
+<!-- ── A Closer Look ──────────────────────────────────────────── -->
+<section class="pb-16 px-6 lg:px-12">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+      <div class="aspect-[4/3] overflow-hidden rounded-xl shadow-sm group cursor-pointer">
         <img src="{{ url_for('static', filename='images/img-cupcakes-closeup.jpg') }}"
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
              alt="Hazelnut Nutella cupcakes" loading="lazy">
       </div>
-      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+      <div class="aspect-[4/3] overflow-hidden rounded-xl shadow-sm group cursor-pointer">
         <img src="{{ url_for('static', filename='images/img-danish.jpg') }}"
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
              alt="Pesto tomato danish" loading="lazy">
       </div>
-      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+      <div class="aspect-[4/3] overflow-hidden rounded-xl shadow-sm group cursor-pointer">
         <img src="{{ url_for('static', filename='images/img-croissants.jpg') }}"
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
              alt="Stuffed croissants" loading="lazy">
       </div>
-      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+      <div class="aspect-[4/3] overflow-hidden rounded-xl shadow-sm group cursor-pointer">
         <img src="{{ url_for('static', filename='images/img-cakes-showcase.jpg') }}"
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
              alt="Cake showcase" loading="lazy">
