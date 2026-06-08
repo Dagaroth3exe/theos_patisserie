@@ -99,7 +99,7 @@
 
   .product-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 48px rgba(30, 42, 94, 0.13);
+    box-shadow: 0 20px 48px rgba(26, 18, 8, 0.13);
   }
 
   .product-card .card-img {

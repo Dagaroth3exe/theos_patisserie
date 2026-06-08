@@ -9,29 +9,29 @@ module.exports = {
       colors: {
         cream: {
           DEFAULT: "#f7efe5",
-          light: "#fffdfa",
+          light: "#fffdf9",
           dark: "#eddece",
         },
         espresso: {
-          DEFAULT: "#1e2a5e",
-          light: "#2d3d7a",
+          DEFAULT: "#1a1208",
+          light: "#2d2117",
         },
         rust: {
-          DEFAULT: "#6b7a3a",
-          dark: "#505c2a",
-          light: "#8a9b52",
+          DEFAULT: "#7a5c3a",
+          dark: "#5c4028",
+          light: "#9b7a52",
         },
         taupe: {
-          DEFAULT: "#8a7a5a",
-          dark: "#6b5e40",
+          DEFAULT: "#9b8a7a",
+          dark: "#7a6a5c",
         },
         gold: {
           DEFAULT: "#c9a84c",
           light: "#e8c96d",
           dark: "#a8873a",
         },
-        border: "#ddd8c8",
-        muted: "#5a5e48",
+        border: "#e8ddd0",
+        muted: "#5c5048",
       },
       fontFamily: {
         serif: ["Playfair Display", "Georgia", "serif"],

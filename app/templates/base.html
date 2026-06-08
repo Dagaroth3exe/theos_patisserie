@@ -24,33 +24,11 @@
       <div class="flex items-center justify-between h-16 lg:h-18">
 
         <!-- Logo -->
-        <a href="{{ url_for('public.index') }}" class="flex items-center gap-3 group">
-          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
-               class="h-10 w-10 flex-shrink-0 text-espresso transition-opacity duration-200 group-hover:opacity-80">
-            <circle cx="40" cy="40" r="37" stroke="currentColor" stroke-width="1.8"/>
-            <circle cx="40" cy="40" r="33.5" stroke="currentColor" stroke-width="0.6"/>
-            <line x1="19.5" y1="52" x2="19.5" y2="25" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-            <path d="M19.5,47 C16,45 13,41.5 13.5,38.5 C16.5,41 19,44.5 19.5,47Z" fill="currentColor"/>
-            <path d="M19.5,40.5 C16,38.5 13,35 13.5,32 C16.5,34.5 19,38 19.5,40.5Z" fill="currentColor"/>
-            <path d="M19.5,34 C16,32 13,28.5 13.5,25.5 C16.5,28 19,31.5 19.5,34Z" fill="currentColor"/>
-            <path d="M19.5,44.5 C23,42.5 26,39 25.5,36 C22.5,38.5 20,42 19.5,44.5Z" fill="currentColor"/>
-            <path d="M19.5,38 C23,36 26,32.5 25.5,29.5 C22.5,32 20,35.5 19.5,38Z" fill="currentColor"/>
-            <path d="M19.5,31.5 C23,29.5 26,26 25.5,23 C22.5,25.5 20,29 19.5,31.5Z" fill="currentColor"/>
-            <line x1="60.5" y1="52" x2="60.5" y2="25" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-            <path d="M60.5,47 C64,45 67,41.5 66.5,38.5 C63.5,41 61,44.5 60.5,47Z" fill="currentColor"/>
-            <path d="M60.5,40.5 C64,38.5 67,35 66.5,32 C63.5,34.5 61,38 60.5,40.5Z" fill="currentColor"/>
-            <path d="M60.5,34 C64,32 67,28.5 66.5,25.5 C63.5,28 61,31.5 60.5,34Z" fill="currentColor"/>
-            <path d="M60.5,44.5 C57,42.5 54,39 54.5,36 C57.5,38.5 60,42 60.5,44.5Z" fill="currentColor"/>
-            <path d="M60.5,38 C57,36 54,32.5 54.5,29.5 C57.5,32 60,35.5 60.5,38Z" fill="currentColor"/>
-            <path d="M60.5,31.5 C57,29.5 54,26 54.5,23 C57.5,25.5 60,29 60.5,31.5Z" fill="currentColor"/>
-            <text x="40" y="55" text-anchor="middle"
-                  font-family="'Playfair Display',Georgia,serif"
-                  font-weight="900" font-size="38" fill="currentColor">T</text>
-          </svg>
-          <div class="flex flex-col leading-none gap-1">
-            <span class="font-serif font-bold text-lg tracking-[0.22em] text-espresso uppercase">Theos</span>
-            <span class="text-[8px] font-medium tracking-[0.35em] text-taupe uppercase">&mdash;&thinsp;Patisserie&thinsp;&mdash;</span>
-          </div>
+        <a href="{{ url_for('public.index') }}" class="flex items-center">
+          <img src="{{ url_for('static', filename='images/theos-logo.jpg') }}"
+               alt="Theos Patisserie"
+               class="h-16 w-auto"
+               style="mix-blend-mode: multiply;">
         </a>
 
         <!-- Desktop nav -->
@@ -110,34 +88,10 @@
 
         <!-- Brand -->
         <div>
-          <div class="flex items-center gap-4 mb-5">
-            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
-                 class="h-16 w-16 flex-shrink-0 text-gold">
-              <circle cx="40" cy="40" r="37" stroke="currentColor" stroke-width="1.8"/>
-              <circle cx="40" cy="40" r="33.5" stroke="currentColor" stroke-width="0.6"/>
-              <line x1="19.5" y1="52" x2="19.5" y2="25" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-              <path d="M19.5,47 C16,45 13,41.5 13.5,38.5 C16.5,41 19,44.5 19.5,47Z" fill="currentColor"/>
-              <path d="M19.5,40.5 C16,38.5 13,35 13.5,32 C16.5,34.5 19,38 19.5,40.5Z" fill="currentColor"/>
-              <path d="M19.5,34 C16,32 13,28.5 13.5,25.5 C16.5,28 19,31.5 19.5,34Z" fill="currentColor"/>
-              <path d="M19.5,44.5 C23,42.5 26,39 25.5,36 C22.5,38.5 20,42 19.5,44.5Z" fill="currentColor"/>
-              <path d="M19.5,38 C23,36 26,32.5 25.5,29.5 C22.5,32 20,35.5 19.5,38Z" fill="currentColor"/>
-              <path d="M19.5,31.5 C23,29.5 26,26 25.5,23 C22.5,25.5 20,29 19.5,31.5Z" fill="currentColor"/>
-              <line x1="60.5" y1="52" x2="60.5" y2="25" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
-              <path d="M60.5,47 C64,45 67,41.5 66.5,38.5 C63.5,41 61,44.5 60.5,47Z" fill="currentColor"/>
-              <path d="M60.5,40.5 C64,38.5 67,35 66.5,32 C63.5,34.5 61,38 60.5,40.5Z" fill="currentColor"/>
-              <path d="M60.5,34 C64,32 67,28.5 66.5,25.5 C63.5,28 61,31.5 60.5,34Z" fill="currentColor"/>
-              <path d="M60.5,44.5 C57,42.5 54,39 54.5,36 C57.5,38.5 60,42 60.5,44.5Z" fill="currentColor"/>
-              <path d="M60.5,38 C57,36 54,32.5 54.5,29.5 C57.5,32 60,35.5 60.5,38Z" fill="currentColor"/>
-              <path d="M60.5,31.5 C57,29.5 54,26 54.5,23 C57.5,25.5 60,29 60.5,31.5Z" fill="currentColor"/>
-              <text x="40" y="55" text-anchor="middle"
-                    font-family="'Playfair Display',Georgia,serif"
-                    font-weight="900" font-size="38" fill="currentColor">T</text>
-            </svg>
-            <div class="flex flex-col gap-1.5">
-              <span class="font-serif font-bold text-2xl tracking-[0.25em] text-cream uppercase leading-none">Theos</span>
-              <span class="text-[9px] font-medium tracking-[0.35em] text-cream/50 uppercase">&mdash;&thinsp;Patisserie&thinsp;&mdash;</span>
-            </div>
-          </div>
+          <img src="{{ url_for('static', filename='images/theos-logo.jpg') }}"
+               alt="Theos Patisserie"
+               class="h-32 w-auto mb-4"
+               style="filter: invert(1); mix-blend-mode: screen;">
           <p class="text-sm leading-relaxed text-cream/60">
             Handcrafted with the finest ingredients. Every bite tells a story of passion, precision, and the art of French patisserie.
           </p>
