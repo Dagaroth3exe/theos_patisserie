@@ -5,19 +5,28 @@
 {% block content %}
 
 <!-- ── Hero ──────────────────────────────────────────────────── -->
-<section class="relative min-h-screen flex items-center overflow-hidden bg-hero-gradient">
+<section class="relative min-h-screen flex items-center overflow-hidden">
 
-  <!-- Ambient particles -->
+  <!-- Video background with interior image as fallback poster -->
+  <video class="absolute inset-0 w-full h-full object-cover z-0"
+         autoplay muted loop playsinline
+         poster="{{ url_for('static', filename='images/img-interior-wide.jpg') }}">
+    <source src="{{ url_for('static', filename='images/video-showcase.mp4') }}" type="video/mp4">
+  </video>
+  <!-- Gradient overlay: darker at bottom so text reads cleanly -->
+  <div class="absolute inset-0 z-10" style="background: linear-gradient(to bottom, rgba(26,18,8,0.58) 0%, rgba(26,18,8,0.52) 60%, rgba(26,18,8,0.72) 100%);"></div>
+
+  <!-- Ambient gold particles (brighter against dark bg) -->
   {% set particles = [
-    {"size": "6px",  "left": "8%",  "top": "15%", "dur": "12s", "delay": "0s",   "color": "rgba(201,168,76,0.3)"},
-    {"size": "4px",  "left": "85%", "top": "20%", "dur": "16s", "delay": "2s",   "color": "rgba(122,92,58,0.25)"},
-    {"size": "8px",  "left": "20%", "top": "70%", "dur": "14s", "delay": "4s",   "color": "rgba(201,168,76,0.2)"},
-    {"size": "5px",  "left": "72%", "top": "60%", "dur": "18s", "delay": "1s",   "color": "rgba(155,138,122,0.2)"},
-    {"size": "7px",  "left": "50%", "top": "10%", "dur": "13s", "delay": "5s",   "color": "rgba(201,168,76,0.25)"},
-    {"size": "3px",  "left": "38%", "top": "80%", "dur": "15s", "delay": "3s",   "color": "rgba(122,92,58,0.3)"},
+    {"size": "6px",  "left": "8%",  "top": "15%", "dur": "12s", "delay": "0s",   "color": "rgba(201,168,76,0.5)"},
+    {"size": "4px",  "left": "85%", "top": "20%", "dur": "16s", "delay": "2s",   "color": "rgba(201,168,76,0.4)"},
+    {"size": "8px",  "left": "20%", "top": "70%", "dur": "14s", "delay": "4s",   "color": "rgba(201,168,76,0.3)"},
+    {"size": "5px",  "left": "72%", "top": "60%", "dur": "18s", "delay": "1s",   "color": "rgba(247,239,229,0.25)"},
+    {"size": "7px",  "left": "50%", "top": "10%", "dur": "13s", "delay": "5s",   "color": "rgba(201,168,76,0.4)"},
+    {"size": "3px",  "left": "38%", "top": "80%", "dur": "15s", "delay": "3s",   "color": "rgba(201,168,76,0.45)"},
   ] %}
   {% for p in particles %}
-    <span class="particle" style="
+    <span class="particle z-20" style="
       width: {{ p.size }}; height: {{ p.size }};
       left: {{ p.left }}; top: {{ p.top }};
       background: {{ p.color }};
@@ -25,45 +34,43 @@
     "></span>
   {% endfor %}
 
-  <!-- Floating dessert illustrations -->
-  <div class="hero-float-left absolute left-4 lg:left-16 top-1/2 -translate-y-1/2 opacity-20 pointer-events-none hidden lg:block">
+  <!-- Floating dessert illustrations (ghosted against dark bg) -->
+  <div class="hero-float-left absolute left-4 lg:left-16 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none hidden lg:block z-20">
     <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
-      <!-- Macaron shape -->
-      <ellipse cx="80" cy="60" rx="50" ry="28" fill="#c9a84c" opacity="0.6"/>
-      <rect x="30" y="56" width="100" height="10" fill="#a8873a" opacity="0.8"/>
-      <ellipse cx="80" cy="100" rx="50" ry="28" fill="#c9a84c" opacity="0.6"/>
+      <ellipse cx="80" cy="60" rx="50" ry="28" fill="#e8c96d" opacity="0.7"/>
+      <rect x="30" y="56" width="100" height="10" fill="#c9a84c" opacity="0.9"/>
+      <ellipse cx="80" cy="100" rx="50" ry="28" fill="#e8c96d" opacity="0.7"/>
     </svg>
   </div>
-  <div class="hero-float-right absolute right-4 lg:right-16 top-1/3 opacity-15 pointer-events-none hidden lg:block">
+  <div class="hero-float-right absolute right-4 lg:right-16 top-1/3 opacity-10 pointer-events-none hidden lg:block z-20">
     <svg width="120" height="200" viewBox="0 0 120 200" fill="none">
-      <!-- Éclair shape -->
-      <rect x="10" y="80" width="100" height="40" rx="20" fill="#7a5c3a" opacity="0.6"/>
-      <rect x="25" y="70" width="70" height="12" rx="6" fill="#c9a84c" opacity="0.7"/>
-      <circle cx="60" cy="50" r="30" fill="#9b8a7a" opacity="0.4"/>
+      <rect x="10" y="80" width="100" height="40" rx="20" fill="#e8c96d" opacity="0.7"/>
+      <rect x="25" y="70" width="70" height="12" rx="6" fill="#c9a84c" opacity="0.8"/>
+      <circle cx="60" cy="50" r="30" fill="#f7efe5" opacity="0.35"/>
     </svg>
   </div>
 
   <!-- Hero content -->
-  <div class="relative z-10 max-w-4xl mx-auto px-6 text-center py-24">
-    <p class="section-kicker mb-4 animate-fade-up" style="animation-delay: 0.1s">
+  <div class="relative z-30 max-w-4xl mx-auto px-6 text-center py-24">
+    <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-4 animate-fade-up">
       Artisan Patisserie &nbsp;·&nbsp; Noida &amp; Delhi
     </p>
-    <h1 class="hero-headline font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-espresso leading-none mb-6">
+    <h1 class="hero-headline font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-cream leading-none mb-6">
       Where Every<br>Bite Is<br><span class="brand-shimmer">Extraordinary</span>
     </h1>
-    <p class="hero-sub font-cormorant text-xl text-muted leading-relaxed max-w-xl mx-auto mb-10">
+    <p class="hero-sub font-cormorant text-xl text-cream/75 leading-relaxed max-w-xl mx-auto mb-10">
       Handcrafted macarons, éclairs, entremets, and seasonal confections — made with the finest ingredients and a devotion to the art of French patisserie.
     </p>
     <div class="hero-cta flex flex-wrap items-center justify-center gap-4">
       <a href="{{ url_for('public.products') }}" class="btn-primary text-base px-10 py-3.5">Explore Our Menu</a>
-      <a href="{{ url_for('public.order') }}" class="btn-outline text-base px-8 py-3">Place an Enquiry</a>
+      <a href="{{ url_for('public.order') }}" class="btn-outline-light text-base px-8 py-3">Place an Enquiry</a>
     </div>
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce">
-    <span class="text-xs font-cormorant italic text-muted/60 tracking-widest">Scroll</span>
-    <svg class="w-4 h-4 text-muted/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 animate-bounce z-30">
+    <span class="text-xs font-cormorant italic text-cream/60 tracking-widest">Scroll</span>
+    <svg class="w-4 h-4 text-cream/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
     </svg>
   </div>
@@ -104,8 +111,13 @@
 
 <!-- ── Seasonal Teaser ────────────────────────────────────────── -->
 {% if seasonals %}
-<section class="bg-espresso text-cream py-20 lg:py-24 px-6 overflow-hidden">
-  <div class="max-w-7xl mx-auto">
+<section class="relative bg-espresso text-cream py-20 lg:py-24 px-6 overflow-hidden">
+  <!-- Mango trifle as a subtle warmth layer behind the dark section -->
+  <div class="absolute inset-0 z-0">
+    <img src="{{ url_for('static', filename='images/img-mango-trifle.jpg') }}"
+         class="w-full h-full object-cover opacity-10" alt="">
+  </div>
+  <div class="relative z-10 max-w-7xl mx-auto">
     <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
       <div>
@@ -173,6 +185,35 @@
 </section>
 
 
+<!-- ── Photo Gallery Strip ────────────────────────────────────── -->
+<section class="py-14 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+        <img src="{{ url_for('static', filename='images/img-cupcakes-closeup.jpg') }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             alt="Hazelnut Nutella cupcakes" loading="lazy">
+      </div>
+      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+        <img src="{{ url_for('static', filename='images/img-danish.jpg') }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             alt="Pesto tomato danish" loading="lazy">
+      </div>
+      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+        <img src="{{ url_for('static', filename='images/img-croissants.jpg') }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             alt="Stuffed croissants" loading="lazy">
+      </div>
+      <div class="aspect-square overflow-hidden rounded-2xl shadow-sm group cursor-pointer">
+        <img src="{{ url_for('static', filename='images/img-cakes-showcase.jpg') }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             alt="Cake showcase" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ── Brand Story CTA ────────────────────────────────────────── -->
 <section class="py-20 lg:py-28 px-6">
   <div class="max-w-7xl mx-auto">
@@ -193,15 +234,10 @@
       </div>
 
       <div class="relative hidden lg:block">
-        <div class="aspect-[3/4] rounded-3xl bg-gradient-to-br from-cream-dark via-cream to-cream-light overflow-hidden shadow-xl" data-reveal="image">
-          <div class="absolute inset-0 flex items-center justify-center">
-            <!-- Decorative placeholder — replace with real brand photo -->
-            <div class="text-center p-8">
-              <div class="font-serif text-8xl text-espresso/20 mb-4">T</div>
-              <p class="font-cormorant italic text-taupe text-xl">Est. with love &amp; craft</p>
-              <div class="section-divider mt-4"></div>
-            </div>
-          </div>
+        <div class="aspect-[3/4] rounded-3xl overflow-hidden shadow-xl" data-reveal="image">
+          <img src="{{ url_for('static', filename='images/img-storefront-salad.jpg') }}"
+               class="w-full h-full object-cover"
+               alt="Theos Patisserie storefront" loading="lazy">
         </div>
       </div>
 

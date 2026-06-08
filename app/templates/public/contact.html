@@ -4,13 +4,19 @@
 {% block content %}
 <div class="pt-8">
 
-  <div class="bg-cream-dark/40 border-b border-border py-16 px-6 text-center">
-    <p class="section-kicker mb-3">Get in Touch</p>
-    <div class="section-divider"></div>
-    <h1 class="font-serif text-4xl lg:text-5xl text-espresso mt-4" data-reveal="heading">Contact Us</h1>
-    <p class="font-cormorant text-muted text-lg mt-3">
-      We'd love to hear from you.
-    </p>
+  <!-- Header with storefront banner -->
+  <div class="relative overflow-hidden" style="height: 340px;">
+    <img src="{{ url_for('static', filename='images/img-storefront-salad.jpg') }}"
+         class="absolute inset-0 w-full h-full object-cover" alt="Theos Patisserie storefront">
+    <div class="absolute inset-0 bg-espresso/50"></div>
+    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+      <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3">Get in Touch</p>
+      <div class="section-divider"></div>
+      <h1 class="font-serif text-4xl lg:text-5xl text-cream mt-4" data-reveal="heading">Contact Us</h1>
+      <p class="font-cormorant text-cream/75 text-lg mt-3">
+        We'd love to hear from you.
+      </p>
+    </div>
   </div>
 
   <div class="max-w-5xl mx-auto px-6 py-16">

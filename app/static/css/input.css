@@ -82,6 +82,14 @@
            hover:bg-gold hover:text-espresso;
   }
 
+  .btn-outline-light {
+    @apply inline-flex items-center justify-center
+           border border-cream text-cream font-medium
+           px-5 py-2.5 rounded-full
+           transition-all duration-300
+           hover:bg-cream hover:text-espresso;
+  }
+
   /* ── Cards ─────────────────────────────────────────────── */
   .card {
     @apply bg-white/85 border border-border rounded-2xl overflow-hidden
@@ -179,7 +187,7 @@
   /* ── Navbar ─────────────────────────────────────────────── */
   .site-nav {
     @apply fixed top-0 inset-x-0 z-50
-           backdrop-blur-sm bg-cream/75 border-b border-border/40
+           bg-cream border-b border-border/50
            transition-all duration-300;
   }
 

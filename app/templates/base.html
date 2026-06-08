@@ -21,13 +21,13 @@
   <!-- ── Navigation ──────────────────────────────────────────── -->
   <nav class="site-nav" id="site-nav">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 lg:h-18">
+      <div class="flex items-center justify-between py-4 lg:py-5">
 
         <!-- Logo -->
-        <a href="{{ url_for('public.index') }}" class="flex items-center">
+        <a href="{{ url_for('public.index') }}" class="flex items-center py-2">
           <img src="{{ url_for('static', filename='images/theos-logo.jpg') }}"
                alt="Theos Patisserie"
-               class="h-16 w-auto"
+               class="h-14 w-auto"
                style="mix-blend-mode: multiply;">
         </a>
 
@@ -41,7 +41,7 @@
 
         <!-- CTA + mobile toggle -->
         <div class="flex items-center gap-3">
-          <a href="{{ url_for('public.order') }}" class="btn-primary text-sm py-2 px-5">Order Now</a>
+          <a href="{{ url_for('public.order') }}" class="btn-primary font-cormorant italic text-base tracking-widest py-2.5 px-7">Order Now</a>
           <button class="md:hidden p-2 rounded-lg hover:bg-cream-dark transition-colors" id="mobile-menu-btn" aria-label="Menu">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
@@ -77,7 +77,7 @@
   {% endwith %}
 
   <!-- ── Main content ───────────────────────────────────────── -->
-  <main class="flex-1 pt-16">
+  <main class="flex-1 pt-24 lg:pt-28">
     {% block content %}{% endblock %}
   </main>
 

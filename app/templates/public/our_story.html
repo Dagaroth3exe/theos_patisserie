@@ -4,14 +4,19 @@
 {% block content %}
 <div class="pt-8">
 
-  <!-- Hero -->
-  <div class="bg-cream-dark/40 border-b border-border py-20 px-6 text-center">
-    <p class="section-kicker mb-3">Est. with love &amp; craft</p>
-    <div class="section-divider"></div>
-    <h1 class="font-serif text-5xl lg:text-6xl text-espresso mt-4 font-bold" data-reveal="heading">Our Story</h1>
-    <p class="font-cormorant text-muted text-xl mt-3 max-w-xl mx-auto italic">
-      A love letter to French patisserie, written in India.
-    </p>
+  <!-- Hero banner -->
+  <div class="relative overflow-hidden" style="height: 440px;">
+    <img src="{{ url_for('static', filename='images/img-interior-wide.jpg') }}"
+         class="absolute inset-0 w-full h-full object-cover" alt="Theos Patisserie interior">
+    <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(26,18,8,0.52) 0%, rgba(26,18,8,0.65) 100%);"></div>
+    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+      <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3">Est. with love &amp; craft</p>
+      <div class="section-divider"></div>
+      <h1 class="font-serif text-5xl lg:text-6xl text-cream mt-4 font-bold" data-reveal="heading">Our Story</h1>
+      <p class="font-cormorant text-cream/75 text-xl mt-3 max-w-xl mx-auto italic">
+        A love letter to French patisserie, written in India.
+      </p>
+    </div>
   </div>
 
   <div class="max-w-4xl mx-auto px-6 py-20">
@@ -22,7 +27,7 @@
         "Baking is not just what we do — it is who we are."
       </p>
       <div class="section-divider"></div>
-      <cite class="text-muted text-sm font-cormorant italic not-italic mt-4 block">— Theo's Patisserie</cite>
+      <cite class="text-muted text-sm font-cormorant italic mt-4 block">— Theo's Patisserie</cite>
     </blockquote>
 
     <!-- Story sections -->
@@ -39,20 +44,16 @@
             What started as a small patisserie in Sector 39, Noida, quickly grew into something bigger — a destination for those who believe that food can be both an art and an act of love.
           </p>
         </div>
-        <div class="rounded-3xl bg-gradient-to-br from-cream-dark via-cream to-cream-light aspect-[4/3] flex items-center justify-center shadow-lg" data-reveal="image">
-          <div class="text-center">
-            <div class="font-serif text-7xl brand-shimmer mb-2">Theo's</div>
-            <p class="font-cormorant italic text-taupe">Noida &amp; Delhi</p>
-          </div>
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] shadow-lg" data-reveal="image">
+          <img src="{{ url_for('static', filename='images/img-full-display.jpg') }}"
+               class="w-full h-full object-cover" alt="Theos Patisserie display" loading="lazy">
         </div>
       </div>
 
       <div class="story-section grid lg:grid-cols-2 gap-10 items-center">
-        <div class="rounded-3xl bg-gradient-to-br from-espresso via-espresso-light to-espresso aspect-[4/3] flex items-center justify-center shadow-lg order-2 lg:order-1" data-reveal="image">
-          <div class="text-center text-cream">
-            <span class="text-gold text-5xl">✦</span>
-            <p class="font-cormorant italic text-cream/70 mt-3 text-lg">The Art of Patisserie</p>
-          </div>
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] shadow-lg order-2 lg:order-1" data-reveal="image">
+          <img src="{{ url_for('static', filename='images/img-cupcakes-display.jpg') }}"
+               class="w-full h-full object-cover" alt="Cupcakes in display case" loading="lazy">
         </div>
         <div class="story-text order-1 lg:order-2">
           <p class="section-kicker mb-3">Our Philosophy</p>
@@ -77,14 +78,26 @@
             We celebrate Indian flavours without apology — because the finest patisserie in the world should taste exactly like where it was made.
           </p>
         </div>
-        <div class="rounded-3xl bg-gradient-to-br from-gold/20 via-cream to-cream-dark aspect-[4/3] flex items-center justify-center shadow-lg" data-reveal="image">
-          <div class="text-center">
-            <p class="font-cormorant italic text-espresso text-2xl">India × France</p>
-            <div class="section-divider mt-3"></div>
-          </div>
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] shadow-lg" data-reveal="image">
+          <img src="{{ url_for('static', filename='images/img-storefront-box.jpg') }}"
+               class="w-full h-full object-cover" alt="Theos Patisserie storefront" loading="lazy">
         </div>
       </div>
 
+    </div>
+
+    <!-- Photo pair: the full Theo's range -->
+    <div class="mt-16 grid grid-cols-2 gap-4">
+      <div class="aspect-video overflow-hidden rounded-2xl shadow-md group">
+        <img src="{{ url_for('static', filename='images/img-salad-bowl.jpg') }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             alt="Fresh chickpea feta salad bowl" loading="lazy">
+      </div>
+      <div class="aspect-video overflow-hidden rounded-2xl shadow-md group">
+        <img src="{{ url_for('static', filename='images/img-packaged-foods.jpg') }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             alt="Packaged foods and bowls" loading="lazy">
+      </div>
     </div>
 
     <!-- CTA -->
