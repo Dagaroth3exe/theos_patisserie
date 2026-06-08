@@ -21,13 +21,13 @@
   <!-- ── Navigation ──────────────────────────────────────────── -->
   <nav class="site-nav" id="site-nav">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
-      <div class="flex items-center justify-between py-0">
+      <div class="flex items-center justify-between py-1.5 lg:py-2">
 
         <!-- Logo -->
         <a href="{{ url_for('public.index') }}" class="flex items-center">
           <img src="{{ url_for('static', filename='images/theos-logo.jpg') }}"
                alt="Theos Patisserie"
-               class="h-16 w-auto"
+               class="h-20 w-auto"
                style="mix-blend-mode: multiply;">
         </a>
 
@@ -42,10 +42,7 @@
         <!-- Minimal CTA + mobile toggle -->
         <div class="flex items-center gap-5">
           <a href="{{ url_for('public.order') }}"
-             class="hidden md:inline-flex font-cormorant italic text-sm tracking-[0.18em] text-espresso/70
-                    border-b border-espresso/25 pb-px
-                    hover:text-espresso hover:border-espresso/60
-                    transition-all duration-300">
+             class="hidden md:inline-flex btn-primary py-2 px-6 text-xs">
             Order Now
           </a>
           <!-- vertical rule -->
@@ -86,7 +83,7 @@
   {% endwith %}
 
   <!-- ── Main content ───────────────────────────────────────── -->
-  <main class="flex-1 pt-16 lg:pt-18">
+  <main class="flex-1 pt-24 lg:pt-28">
     {% block content %}{% endblock %}
   </main>
 
