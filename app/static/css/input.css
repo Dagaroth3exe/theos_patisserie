@@ -140,8 +140,9 @@
 
   /* ── Cards ─────────────────────────────────────────────── */
   .card {
-    @apply bg-white/85 border border-border rounded-2xl overflow-hidden
-           shadow-sm transition-all duration-300;
+    @apply bg-cream-light border border-border rounded-2xl overflow-hidden
+           transition-all duration-300;
+    box-shadow: 0 2px 12px rgba(26,18,8,0.08), 0 1px 3px rgba(26,18,8,0.05);
   }
 
   .card-glass {
@@ -180,6 +181,47 @@
     );
     animation: glint 3.5s ease-in-out infinite;
     z-index: 1;
+  }
+
+  /* ── Signature grid — dark card overrides ──────────────── */
+  .signature-grid .product-card {
+    background: #2d2117;
+    border-color: transparent;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+  }
+  .signature-grid .product-card:hover {
+    box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+  }
+  .signature-grid .card-img {
+    opacity: 0.92;
+  }
+  .signature-grid .product-card h3 {
+    color: #fefcf8;
+  }
+  .signature-grid .product-card p {
+    color: rgba(254,252,248,0.55);
+  }
+  .signature-grid .product-card .font-semibold {
+    color: #c9a84c;
+  }
+  .signature-grid .category-pill {
+    color: rgba(201,168,76,0.75);
+    border-color: rgba(201,168,76,0.3);
+  }
+  .signature-grid .gold-badge {
+    background: rgba(201,168,76,0.12);
+    border-color: rgba(201,168,76,0.35);
+  }
+  .signature-grid .btn-outline {
+    border-color: rgba(254,252,248,0.25);
+    color: #fefcf8;
+    background: linear-gradient(to right, rgba(254,252,248,0.12) 50%, transparent 50%);
+    background-size: 200% 100%;
+    background-position: right center;
+  }
+  .signature-grid .btn-outline:hover {
+    background-position: left center;
+    color: #fefcf8;
   }
 
   /* ── Forms ─────────────────────────────────────────────── */
@@ -234,16 +276,16 @@
 
   /* ── Navbar ─────────────────────────────────────────────── */
   .site-nav {
-    @apply fixed top-0 inset-x-0 z-50
-           bg-cream
+    @apply fixed top-3 inset-x-0 z-50
+           bg-cream-dark
            transition-all duration-300;
     border-bottom: 1px solid transparent;
   }
 
   .site-nav.nav-scrolled {
-    @apply bg-cream;
-    border-bottom-color: rgba(232,221,208,0.5);
-    box-shadow: 0 1px 12px rgba(26,18,8,0.06);
+    @apply bg-cream-dark;
+    border-bottom-color: rgba(200,180,148,0.5);
+    box-shadow: 0 1px 12px rgba(26,18,8,0.08);
   }
 
   .nav-link {

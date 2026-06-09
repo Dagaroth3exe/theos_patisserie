@@ -5,16 +5,26 @@
 {% block content %}
 
 <!-- ── Hero ──────────────────────────────────────────────────── -->
-<section class="relative min-h-screen flex items-center overflow-hidden">
+<section class="relative min-h-screen flex items-center overflow-hidden -mt-32 lg:-mt-36">
 
-  <!-- Video background with interior image as fallback poster -->
-  <video class="absolute inset-0 w-full h-full object-cover z-0"
-         autoplay muted loop playsinline
-         poster="{{ url_for('static', filename='images/img-interior-wide.jpg') }}">
-    <source src="{{ url_for('static', filename='images/video-showcase.mp4') }}" type="video/mp4">
-  </video>
+  <!-- Hero image carousel -->
+  <div id="hero-carousel" class="absolute inset-0 z-0 overflow-hidden">
+    {% set hero_slides = [
+      'img-interior-wide.jpg',
+      'img-full-display.jpg',
+      'img-cakes-showcase.jpg',
+      'img-croissants.jpg',
+      'img-danish.jpg',
+    ] %}
+    {% for img in hero_slides %}
+      <div class="carousel-slide absolute inset-0"{% if not loop.first %} style="opacity:0"{% endif %}>
+        <img src="{{ url_for('static', filename='images/' ~ img) }}"
+             alt="" class="carousel-img w-full h-full object-cover">
+      </div>
+    {% endfor %}
+  </div>
   <!-- Gradient overlay: darker at bottom so text reads cleanly -->
-  <div class="absolute inset-0 z-10" style="background: linear-gradient(to bottom, rgba(26,18,8,0.42) 0%, rgba(26,18,8,0.38) 60%, rgba(26,18,8,0.58) 100%);"></div>
+  <div class="absolute inset-0 z-10" style="background: linear-gradient(to bottom, rgba(26,18,8,0.62) 0%, rgba(26,18,8,0.58) 60%, rgba(26,18,8,0.75) 100%);"></div>
 
   <!-- Ambient gold particles (brighter against dark bg) -->
   {% set particles = [
@@ -34,21 +44,6 @@
     "></span>
   {% endfor %}
 
-  <!-- Floating dessert illustrations (ghosted against dark bg) -->
-  <div class="hero-float-left absolute left-4 lg:left-16 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none hidden lg:block z-20">
-    <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
-      <ellipse cx="80" cy="60" rx="50" ry="28" fill="#e8c96d" opacity="0.7"/>
-      <rect x="30" y="56" width="100" height="10" fill="#c9a84c" opacity="0.9"/>
-      <ellipse cx="80" cy="100" rx="50" ry="28" fill="#e8c96d" opacity="0.7"/>
-    </svg>
-  </div>
-  <div class="hero-float-right absolute right-4 lg:right-16 top-1/3 opacity-10 pointer-events-none hidden lg:block z-20">
-    <svg width="120" height="200" viewBox="0 0 120 200" fill="none">
-      <rect x="10" y="80" width="100" height="40" rx="20" fill="#e8c96d" opacity="0.7"/>
-      <rect x="25" y="70" width="70" height="12" rx="6" fill="#c9a84c" opacity="0.8"/>
-      <circle cx="60" cy="50" r="30" fill="#f7efe5" opacity="0.35"/>
-    </svg>
-  </div>
 
   <!-- Hero content -->
   <div class="relative z-30 max-w-4xl mx-auto px-6 text-center py-24">
@@ -65,6 +60,14 @@
       <a href="{{ url_for('public.products') }}" class="btn-primary text-base px-10 py-3.5">Explore Our Menu</a>
       <a href="{{ url_for('public.order') }}" class="btn-outline-light text-base px-8 py-3">Place an Enquiry</a>
     </div>
+  </div>
+
+  <!-- Carousel dot indicators -->
+  <div id="carousel-dots" class="absolute bottom-20 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-30">
+    {% for img in hero_slides %}
+      <button class="carousel-dot w-1.5 h-1.5 rounded-full transition-all duration-500 {% if loop.first %}bg-gold w-5{% else %}bg-cream/35{% endif %}"
+              data-index="{{ loop.index0 }}" aria-label="Slide {{ loop.index }}"></button>
+    {% endfor %}
   </div>
 
   <!-- Scroll indicator -->
@@ -93,7 +96,7 @@
     </div>
 
     {% if featured %}
-      <div class="product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div class="signature-grid product-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
         {% for product in featured %}
           {% include "public/_product_card.html" %}
         {% endfor %}
@@ -156,6 +159,154 @@
     </div>
   </div>
 </section>
+{% endif %}
+
+
+<!-- ── Instagram Reels ───────────────────────────────────────── -->
+{% if reel_videos %}
+<section class="py-20 lg:py-24 px-6 bg-espresso overflow-hidden">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <p class="font-cormorant italic text-gold text-sm tracking-[0.22em] uppercase mb-2">Follow Along</p>
+        <h2 class="font-serif text-3xl lg:text-4xl text-cream leading-tight">On Our Feed</h2>
+      </div>
+      <a href="https://www.instagram.com/theosfoodindia/"
+         target="_blank" rel="noopener"
+         class="hidden md:flex items-center gap-2 text-cream/50 hover:text-gold transition-colors duration-300 text-sm font-cormorant italic tracking-wide">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        @theosfoodindia
+      </a>
+    </div>
+
+    <!-- Reel carousel -->
+    <div class="flex items-center gap-5 lg:gap-8">
+
+      <!-- Left arrow -->
+      <button id="reels-prev" aria-label="Previous"
+              class="flex-none w-14 h-14 rounded-full
+                     flex items-center justify-center
+                     border-2 border-gold text-gold
+                     hover:bg-gold hover:text-espresso
+                     transition-all duration-300 group">
+        <svg class="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      <!-- Track viewport -->
+      <div class="flex-1 overflow-hidden" id="reels-viewport">
+        <div class="flex" id="reels-track" style="will-change:transform;gap:16px;">
+          {% for video in reel_videos %}
+            <div class="reel-item flex-none rounded-2xl overflow-hidden relative group"
+                 style="aspect-ratio:9/16;">
+              <video class="w-full h-full object-cover"
+                     autoplay muted loop playsinline
+                     src="{{ url_for('static', filename='videos/' ~ video) }}"></video>
+              <div class="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/20 transition-colors duration-300 pointer-events-none rounded-2xl"></div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right arrow -->
+      <button id="reels-next" aria-label="Next"
+              class="flex-none w-14 h-14 rounded-full
+                     flex items-center justify-center
+                     border-2 border-gold text-gold
+                     hover:bg-gold hover:text-espresso
+                     transition-all duration-300 group">
+        <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5"
+             fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+    </div>
+
+    <!-- Instagram CTA -->
+    <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="https://www.instagram.com/theosfoodindia/"
+         target="_blank" rel="noopener"
+         class="inline-flex items-center gap-3 border border-gold/40 hover:border-gold
+                text-gold hover:text-espresso bg-transparent hover:bg-gold
+                font-cormorant italic tracking-[0.18em] uppercase text-sm px-8 py-3
+                rounded transition-all duration-400 group">
+        <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Follow us &nbsp;·&nbsp; @theosfoodindia
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  const track    = document.getElementById('reels-track');
+  const viewport = document.getElementById('reels-viewport');
+  const prevBtn  = document.getElementById('reels-prev');
+  const nextBtn  = document.getElementById('reels-next');
+  if (!track) return;
+
+  const VISIBLE = 4;
+  const GAP     = 16;
+  let offset    = 0;
+
+  function setItemWidths() {
+    const vw = viewport.offsetWidth;
+    const w  = (vw - GAP * (VISIBLE - 1)) / VISIBLE;
+    track.querySelectorAll('.reel-item').forEach(el => el.style.width = w + 'px');
+    track.style.gap = GAP + 'px';
+  }
+
+  function pageWidth() {
+    const item = track.querySelector('.reel-item');
+    return item ? (item.offsetWidth + GAP) * VISIBLE : 0;
+  }
+
+  function maxOffset() {
+    return Math.max(0, track.scrollWidth - viewport.offsetWidth);
+  }
+
+  function updateArrows() {
+    prevBtn.style.opacity = offset <= 0 ? '0.35' : '1';
+    nextBtn.style.opacity = offset >= maxOffset() ? '0.35' : '1';
+  }
+
+  function slide(dir) {
+    offset = Math.min(Math.max(offset + dir * pageWidth(), 0), maxOffset());
+    gsap.to(track, { x: -offset, duration: 0.7, ease: 'power2.inOut' });
+    updateArrows();
+  }
+
+  function init() {
+    setItemWidths();
+    updateArrows();
+  }
+
+  // Wait for full layout before measuring
+  window.addEventListener('load', init);
+  // Fallback in case load already fired
+  if (document.readyState === 'complete') init();
+
+  window.addEventListener('resize', () => {
+    setItemWidths();
+    offset = 0;
+    gsap.set(track, { x: 0 });
+    updateArrows();
+  });
+
+  prevBtn.addEventListener('click', () => slide(-1));
+  nextBtn.addEventListener('click', () => slide(1));
+})();
+</script>
 {% endif %}
 
 
@@ -260,4 +411,55 @@
   </div>
 </section>
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const slides = document.querySelectorAll('#hero-carousel .carousel-slide');
+  const dots   = document.querySelectorAll('#carousel-dots .carousel-dot');
+  if (!slides.length) return;
+
+  let current = 0;
+  const INTERVAL = 5000;
+  const FADE     = 1.4;
+  const KB_DUR   = 7;
+
+  function kenBurns(slide) {
+    gsap.fromTo(slide.querySelector('.carousel-img'),
+      { scale: 1.0 },
+      { scale: 1.10, duration: KB_DUR, ease: 'none' }
+    );
+  }
+
+  function activateDot(idx) {
+    dots.forEach((d, i) => {
+      if (i === idx) {
+        gsap.to(d, { width: '20px', backgroundColor: '#c9a84c', duration: 0.4, ease: 'power2.out' });
+      } else {
+        gsap.to(d, { width: '6px', backgroundColor: 'rgba(254,252,248,0.35)', duration: 0.4, ease: 'power2.out' });
+      }
+    });
+  }
+
+  function goTo(idx) {
+    const prev = current;
+    current = idx;
+    gsap.to(slides[prev], { opacity: 0, duration: FADE, ease: 'power2.inOut' });
+    gsap.to(slides[current], { opacity: 1, duration: FADE, ease: 'power2.inOut' });
+    kenBurns(slides[current]);
+    activateDot(current);
+  }
+
+  // Boot first slide
+  kenBurns(slides[0]);
+  activateDot(0);
+
+  // Dot click
+  dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
+
+  // Auto-advance
+  setInterval(() => goTo((current + 1) % slides.length), INTERVAL);
+})();
+</script>
 {% endblock %}

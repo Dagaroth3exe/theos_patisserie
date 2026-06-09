@@ -1,3 +1,4 @@
+import os
 from flask import render_template, request, redirect, url_for, flash, current_app
 from flask_mail import Message
 from app.public import public_bp
@@ -11,7 +12,16 @@ def index():
     featured = Product.query.filter_by(is_featured=True, is_available=True).limit(3).all()
     seasonals = Seasonal.query.filter_by(is_active=True).limit(2).all()
     categories = [e.value for e in CategoryEnum]
-    return render_template("public/index.html", featured=featured, seasonals=seasonals, categories=categories)
+
+    videos_dir = os.path.join(current_app.static_folder, 'videos')
+    reel_videos = sorted([
+        f for f in os.listdir(videos_dir)
+        if f.lower().endswith(('.mp4', '.mov', '.webm'))
+    ]) if os.path.isdir(videos_dir) else []
+
+    return render_template("public/index.html",
+                           featured=featured, seasonals=seasonals,
+                           categories=categories, reel_videos=reel_videos)
 
 
 @public_bp.route("/products")

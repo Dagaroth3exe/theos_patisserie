@@ -8,9 +8,9 @@ module.exports = {
     extend: {
       colors: {
         cream: {
-          DEFAULT: "#f7efe5",
-          light: "#fffdf9",
-          dark: "#eddece",
+          DEFAULT: "#f5ead8",
+          light: "#fefcf8",
+          dark: "#e8d5b7",
         },
         espresso: {
           DEFAULT: "#1a1208",
@@ -39,7 +39,7 @@ module.exports = {
         cormorant: ["Cormorant Garamond", "Georgia", "serif"],
       },
       backgroundImage: {
-        "hero-gradient": "linear-gradient(135deg, #f7efe5 0%, #fffdfa 60%, #eddece 100%)",
+        "hero-gradient": "linear-gradient(135deg, #f5ead8 0%, #fdf4e3 60%, #e8d5b7 100%)",
       },
       animation: {
         shimmer: "shimmer 3s linear infinite",

@@ -18,17 +18,35 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
+  <!-- ── Site intro ────────────────────────────────────────────── -->
+  <div id="site-intro" style="
+    position:fixed;inset:0;z-index:300;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:#1a1208;overflow:hidden;">
+    <div id="intro-logo" style="opacity:0;transform:scale(0.88);">
+      <img src="{{ url_for('static', filename='images/theos-logo.png') }}"
+           alt="Theos Patisserie"
+           style="height:140px;width:auto;filter:invert(1);">
+    </div>
+    <div id="intro-rule" style="width:0;height:1px;background:linear-gradient(to right,transparent,#c9a84c,transparent);margin-top:1.4rem;"></div>
+    <p id="intro-sub" style="
+      font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+      color:rgba(201,168,76,0.7);font-size:0.72rem;letter-spacing:0.32em;
+      text-transform:uppercase;margin-top:1rem;opacity:0;">
+      Artisan Patisserie &nbsp;·&nbsp; Noida &amp; Delhi
+    </p>
+  </div>
+
   <!-- ── Navigation ──────────────────────────────────────────── -->
   <nav class="site-nav" id="site-nav">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
-      <div class="flex items-center justify-between py-0">
+      <div class="flex items-center justify-between py-0 h-24">
 
         <!-- Logo -->
         <a href="{{ url_for('public.index') }}" class="flex items-center">
-          <img src="{{ url_for('static', filename='images/theos-logo.jpg') }}"
+          <img src="{{ url_for('static', filename='images/theos-logo.png') }}"
                alt="Theos Patisserie"
-               class="h-16 w-auto"
-               style="mix-blend-mode: multiply;">
+               class="h-28 w-auto">
         </a>
 
         <!-- Desktop nav — lowercase, light weight, centred -->
@@ -83,7 +101,7 @@
   {% endwith %}
 
   <!-- ── Main content ───────────────────────────────────────── -->
-  <main class="flex-1 pt-24 lg:pt-28">
+  <main class="flex-1 pt-32 lg:pt-36">
     {% block content %}{% endblock %}
   </main>
 
@@ -94,7 +112,7 @@
 
         <!-- Brand -->
         <div>
-          <img src="{{ url_for('static', filename='images/theos-logo.jpg') }}"
+          <img src="{{ url_for('static', filename='images/theos-logo.png') }}"
                alt="Theos Patisserie"
                class="h-32 w-auto mb-4"
                style="filter: invert(1); mix-blend-mode: screen;">
@@ -154,6 +172,44 @@
 
   <!-- ── App JS ─────────────────────────────────────────────── -->
   <script>gsap.registerPlugin(ScrollTrigger);</script>
+
+  <!-- ── Intro animation ───────────────────────────────────────── -->
+  <script>
+    (function() {
+      const intro = document.getElementById('site-intro');
+      if (!intro) return;
+
+      // Only play once per browser session
+      if (sessionStorage.getItem('theos_intro_v1')) {
+        intro.remove();
+        return;
+      }
+      sessionStorage.setItem('theos_intro_v1', '1');
+
+      const tl = gsap.timeline();
+
+      // Logo scales + fades in
+      tl.to('#intro-logo', {
+        opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out'
+      }, 0.2)
+      // Gold rule draws out from centre
+      .to('#intro-rule', {
+        width: '120px', duration: 0.6, ease: 'power2.inOut'
+      }, 0.8)
+      // Tagline fades in
+      .to('#intro-sub', {
+        opacity: 1, duration: 0.55, ease: 'power2.out'
+      }, 1.1)
+      // Hold
+      .to({}, { duration: 0.75 })
+      // Entire overlay clips upward and out
+      .to(intro, {
+        yPercent: -100, duration: 0.85, ease: 'power3.inOut',
+        onComplete: () => intro.remove()
+      });
+    })();
+  </script>
+
   <script src="{{ url_for('static', filename='js/animations.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/scroll-reveal.js') }}" defer></script>
   <script src="{{ url_for('static', filename='js/catalogue.js') }}" defer></script>
