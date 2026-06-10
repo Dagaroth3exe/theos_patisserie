@@ -319,7 +319,13 @@
     @apply w-full h-full flex items-center justify-center
            bg-gradient-to-br from-cream to-cream-dark text-muted/40;
   }
-
+  /* Dark espresso background inside product cards — visible without a photo */
+  .product-card .img-placeholder {
+    background: linear-gradient(135deg, #3d2a26 0%, #2b1d1a 100%);
+  }
+  .product-card .img-placeholder span {
+    color: rgba(201, 168, 76, 0.35);
+  }
   /* ── Status badges (admin) ──────────────────────────────── */
   .status-new {
     @apply inline-flex items-center gap-1 bg-amber-50 text-amber-700
