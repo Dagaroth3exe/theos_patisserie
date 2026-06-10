@@ -2,6 +2,7 @@
 {% block title %}Our Menu{% endblock %}
 
 {% block content %}
+{% set restaurant_cats = ['Soups','Salads','Starters','Extras','French Toast','Pancakes','Waffles','Breakfast','Omelettes'] %}
 
   <!-- Page header with display case banner -->
   <div class="relative overflow-hidden -mt-20 sm:-mt-24 lg:-mt-36" style="height: clamp(260px, 42vw, 460px);">
@@ -48,6 +49,9 @@
             <!-- Text left -->
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-1.5 mb-1">
+                {% if product.category.value in restaurant_cats %}
+                  <span class="veg-dot{% if not product.is_veg %} veg-dot--nonveg{% endif %}" title="{% if product.is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"></span>
+                {% endif %}
                 <span class="font-cormorant italic text-muted text-xs">{{ product.category.value }}</span>
                 {% if product.is_featured %}
                   <span class="inline-block w-1 h-1 rounded-full bg-gold"></span>
@@ -103,6 +107,9 @@
             </div>
             <div class="p-5 relative z-10">
               <div class="flex items-center gap-2 mb-2">
+                {% if product.category.value in restaurant_cats %}
+                  <span class="veg-dot{% if not product.is_veg %} veg-dot--nonveg{% endif %}" title="{% if product.is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"></span>
+                {% endif %}
                 <span class="category-pill">{{ product.category.value }}</span>
                 {% if product.is_featured %}
                   <span class="gold-badge">Signature</span>

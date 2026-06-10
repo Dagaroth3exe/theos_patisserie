@@ -5,12 +5,23 @@ from app.extensions import db
 
 
 class CategoryEnum(enum.Enum):
-    CAKES = "Cakes"
-    TARTS = "Tarts"
-    ECLAIRS = "Éclairs"
-    MACARONS = "Macarons"
-    CROISSANTS = "Croissants"
-    BOXES = "Boxes"
+    # Patisserie
+    CAKES       = "Cakes"
+    TARTS       = "Tarts"
+    ECLAIRS     = "Éclairs"
+    MACARONS    = "Macarons"
+    CROISSANTS  = "Croissants"
+    BOXES       = "Boxes"
+    # Restaurant
+    SOUPS       = "Soups"
+    SALADS      = "Salads"
+    STARTERS    = "Starters"
+    EXTRAS      = "Extras"
+    FRENCH_TOAST = "French Toast"
+    PANCAKES    = "Pancakes"
+    WAFFLES     = "Waffles"
+    BREAKFAST   = "Breakfast"
+    OMELETTES   = "Omelettes"
 
 
 class OrderStatus(enum.Enum):
@@ -32,6 +43,7 @@ class Product(db.Model):
     is_available = db.Column(db.Boolean, default=True, nullable=False)
     is_featured = db.Column(db.Boolean, default=False, nullable=False)
     allergens = db.Column(db.String(500))
+    is_veg = db.Column(db.Boolean, default=True, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     @staticmethod

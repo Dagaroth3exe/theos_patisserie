@@ -384,6 +384,32 @@
   }
 
   /* ── Admin sidebar ──────────────────────────────────────── */
+  /* ── Veg / Non-Veg indicator (FSSAI square + dot) ─────────── */
+  .veg-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid #16a34a;
+    border-radius: 2px;
+  }
+  .veg-dot::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #16a34a;
+  }
+  .veg-dot--nonveg {
+    border-color: #dc2626;
+  }
+  .veg-dot--nonveg::after {
+    background: #dc2626;
+  }
+
   .admin-nav-link {
     @apply flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium
            text-cream/70 hover:text-cream hover:bg-white/10
