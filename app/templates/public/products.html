@@ -2,34 +2,47 @@
 {% block title %}Our Menu{% endblock %}
 
 {% block content %}
-{% set restaurant_cats = ['Soups','Salads','Starters','Extras','French Toast','Pancakes','Waffles','Breakfast','Omelettes'] %}
+{% set restaurant_cats_set = restaurant_cats %}
 
-  <!-- Page header with display case banner -->
+  <!-- Page header -->
   <div class="relative overflow-hidden -mt-20 sm:-mt-24 lg:-mt-36" style="height: clamp(260px, 42vw, 460px);">
     <img src="{{ url_for('static', filename='images/img-display-savory.jpg') }}"
          class="absolute inset-0 w-full h-full object-cover" alt="Theos display case">
     <div class="absolute inset-0 bg-espresso/60"></div>
     <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-20 sm:pt-24 lg:pt-36">
-      <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3" data-reveal="kicker">The Full Collection</p>
+      <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3" data-reveal="kicker">Patisserie & Restaurant</p>
       <div class="section-divider"></div>
       <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-cream mt-4" data-reveal="heading">Our Menu</h1>
       <p class="font-cormorant text-cream/70 text-base sm:text-lg mt-3 max-w-lg mx-auto hidden sm:block">
-        Every item crafted in-house by our pastry chefs. All prices are per piece unless stated.
+        Handcrafted patisserie and a full restaurant menu — everything made in-house with French finesse.
       </p>
     </div>
   </div>
 
   <!-- ── Sticky filter bar ─────────────────────────────────── -->
-  <div id="filter-bar"
-       class="sticky z-40 bg-cream border-b border-border/60">
+  <div id="filter-bar" class="sticky z-40 bg-cream border-b border-border/60">
     <div class="max-w-7xl mx-auto px-5 sm:px-8">
       <div class="overflow-x-auto scrollbar-hide">
-        <div class="flex gap-1 min-w-max sm:flex-wrap sm:min-w-0 sm:justify-center"
+        <div class="flex items-stretch gap-0 min-w-max sm:flex-wrap sm:min-w-0 sm:justify-center"
              id="category-filters">
+
+          <!-- All -->
           <button class="category-chip" data-filter="all">All</button>
-          {% for cat in categories %}
+
+          <!-- Group separator + Patisserie group -->
+          <span class="filter-group-sep" aria-hidden="true"></span>
+          <span class="filter-group-label hidden sm:flex">Patisserie</span>
+          {% for cat in patisserie_cats %}
             <button class="category-chip" data-filter="{{ cat }}">{{ cat }}</button>
           {% endfor %}
+
+          <!-- Group separator + Restaurant group -->
+          <span class="filter-group-sep" aria-hidden="true"></span>
+          <span class="filter-group-label hidden sm:flex">Restaurant</span>
+          {% for cat in restaurant_cats %}
+            <button class="category-chip" data-filter="{{ cat }}">{{ cat }}</button>
+          {% endfor %}
+
         </div>
       </div>
     </div>
@@ -37,20 +50,22 @@
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
 
-    {% if products %}
+    {% if patisserie_products or restaurant_products %}
 
-      <!-- ── Mobile list view (phone only) ────────────────────── -->
-      <div class="sm:hidden product-list" id="product-list-mobile">
-        {% for product in products %}
+      <!-- ══════════════════════════════════════════════════════
+           MOBILE LIST VIEW (sm:hidden)
+           ══════════════════════════════════════════════════════ -->
+      <div class="sm:hidden" id="product-list-mobile">
+
+        {% macro mobile_item(product) %}
           <a href="{{ url_for('public.product_detail', slug=product.slug) }}"
              class="menu-list-item flex items-center gap-4 py-4 border-b border-border last:border-0"
              data-category="{{ product.category.value }}">
-
-            <!-- Text left -->
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-1.5 mb-1">
-                {% if product.category.value in restaurant_cats %}
-                  <span class="veg-dot{% if not product.is_veg %} veg-dot--nonveg{% endif %}" title="{% if product.is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"></span>
+                {% if product.category.value in restaurant_cats_set %}
+                  <span class="veg-dot{% if not product.is_veg %} veg-dot--nonveg{% endif %}"
+                        title="{% if product.is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"></span>
                 {% endif %}
                 <span class="font-cormorant italic text-muted text-xs">{{ product.category.value }}</span>
                 {% if product.is_featured %}
@@ -67,31 +82,44 @@
                 <span class="text-[11px] border border-espresso/25 text-espresso/70 rounded px-2.5 py-0.5 font-cormorant italic tracking-wide">Enquire</span>
               </div>
             </div>
-
-            <!-- Thumbnail right -->
             <div class="shrink-0 w-24 h-24 rounded-xl overflow-hidden bg-cream-dark">
               {% if product.image_filename %}
                 <img src="{{ url_for('static', filename='uploads/products/' ~ product.image_filename) }}"
-                     alt="{{ product.name }}"
-                     class="w-full h-full object-cover" loading="lazy">
+                     alt="{{ product.name }}" class="w-full h-full object-cover" loading="lazy">
               {% else %}
                 <div class="w-full h-full flex items-center justify-center">
                   <span class="font-serif text-2xl text-muted/30">{{ product.name[0] }}</span>
                 </div>
               {% endif %}
             </div>
-
           </a>
-        {% endfor %}
+        {% endmacro %}
+
+        {% if patisserie_products %}
+          <div class="product-section-header" data-section-header>
+            <span>Patisserie</span>
+          </div>
+          {% for product in patisserie_products %}{{ mobile_item(product) }}{% endfor %}
+        {% endif %}
+
+        {% if restaurant_products %}
+          <div class="product-section-header" data-section-header>
+            <span>Restaurant</span>
+          </div>
+          {% for product in restaurant_products %}{{ mobile_item(product) }}{% endfor %}
+        {% endif %}
 
         <p id="no-results-mobile" class="hidden text-center text-muted font-cormorant italic text-base py-10">
           No items in this category yet.
         </p>
       </div>
 
-      <!-- ── Desktop card grid (tablet and up) ─────────────────── -->
-      <div class="hidden sm:grid product-grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {% for product in products %}
+      <!-- ══════════════════════════════════════════════════════
+           DESKTOP CARD GRID (hidden sm:block)
+           ══════════════════════════════════════════════════════ -->
+      <div class="hidden sm:block">
+
+        {% macro desktop_card(product) %}
           <article class="product-card{% if product.is_featured %} is-featured{% endif %}"
                    data-category="{{ product.category.value }}">
             <div class="overflow-hidden aspect-[4/3]">
@@ -107,8 +135,9 @@
             </div>
             <div class="p-5 relative z-10">
               <div class="flex items-center gap-2 mb-2">
-                {% if product.category.value in restaurant_cats %}
-                  <span class="veg-dot{% if not product.is_veg %} veg-dot--nonveg{% endif %}" title="{% if product.is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"></span>
+                {% if product.category.value in restaurant_cats_set %}
+                  <span class="veg-dot{% if not product.is_veg %} veg-dot--nonveg{% endif %}"
+                        title="{% if product.is_veg %}Vegetarian{% else %}Non-Vegetarian{% endif %}"></span>
                 {% endif %}
                 <span class="category-pill">{{ product.category.value }}</span>
                 {% if product.is_featured %}
@@ -126,13 +155,30 @@
               </div>
             </div>
           </article>
-        {% endfor %}
-      </div>
+        {% endmacro %}
 
-      <!-- No results message for desktop -->
-      <p id="no-results" class="hidden text-center text-muted font-cormorant italic text-lg py-16">
-        No items in this category yet. Check back soon!
-      </p>
+        {% if patisserie_products %}
+          <div class="product-section-header" data-section-header>
+            <span>Patisserie</span>
+          </div>
+          <div class="product-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
+            {% for product in patisserie_products %}{{ desktop_card(product) }}{% endfor %}
+          </div>
+        {% endif %}
+
+        {% if restaurant_products %}
+          <div class="product-section-header" data-section-header>
+            <span>Restaurant</span>
+          </div>
+          <div class="product-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for product in restaurant_products %}{{ desktop_card(product) }}{% endfor %}
+          </div>
+        {% endif %}
+
+        <p id="no-results" class="hidden text-center text-muted font-cormorant italic text-lg py-16">
+          No items in this category yet. Check back soon!
+        </p>
+      </div>
 
     {% else %}
       <p class="text-center text-muted font-cormorant text-lg italic py-16">

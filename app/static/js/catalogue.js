@@ -1,11 +1,12 @@
 /**
  * Category filter for /products page.
  * Filters both the mobile list items and the desktop card grid.
+ * Shows/hides section headers (Patisserie / Restaurant) for "All" view.
  * Also positions the sticky filter bar just below the fixed navbar.
  */
 document.addEventListener('DOMContentLoaded', () => {
   // ── Sticky bar: sit flush under the fixed navbar ────────────
-  const nav     = document.getElementById('site-nav');
+  const nav       = document.getElementById('site-nav');
   const filterBar = document.getElementById('filter-bar');
   if (nav && filterBar) {
     const setTop = () => {
@@ -22,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const buttons         = filterContainer.querySelectorAll('.category-chip');
   const cards           = document.querySelectorAll('.product-card[data-category]');
   const listItems       = document.querySelectorAll('.menu-list-item[data-category]');
+  const sectionHeaders  = document.querySelectorAll('[data-section-header]');
+  const productGrids    = document.querySelectorAll('.product-grid');
   const noResults       = document.getElementById('no-results');
   const noResultsMobile = document.getElementById('no-results-mobile');
 
@@ -33,20 +36,31 @@ document.addEventListener('DOMContentLoaded', () => {
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.dataset.filter;
+      const isAll  = filter === 'all';
       setActive(btn);
+
+      // Section headers visible only in "All" view
+      sectionHeaders.forEach(h => {
+        h.style.display = isAll ? '' : 'none';
+      });
 
       // Desktop cards
       let visibleCards = 0;
       cards.forEach(card => {
-        const show = filter === 'all' || card.dataset.category === filter;
+        const show = isAll || card.dataset.category === filter;
         card.style.display = show ? '' : 'none';
         if (show) visibleCards++;
+      });
+
+      // Collapse gap between grids when section headers are hidden
+      productGrids.forEach(grid => {
+        grid.style.marginBottom = isAll ? '' : '0';
       });
 
       // Mobile list items
       let visibleList = 0;
       listItems.forEach(item => {
-        const show = filter === 'all' || item.dataset.category === filter;
+        const show = isAll || item.dataset.category === filter;
         item.style.display = show ? '' : 'none';
         if (show) visibleList++;
       });

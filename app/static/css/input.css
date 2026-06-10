@@ -383,6 +383,28 @@
     transform: scaleX(1);
   }
 
+  /* ── Filter bar group separators & labels ─────────────────── */
+  .filter-group-sep {
+    @apply self-stretch w-px bg-border/70 mx-2 my-2;
+  }
+  .filter-group-label {
+    @apply self-center items-center font-cormorant italic text-muted/50
+           text-xs tracking-widest whitespace-nowrap pr-1;
+  }
+
+  /* ── Product section headers ──────────────────────────────── */
+  .product-section-header {
+    @apply flex items-center gap-4 my-6 sm:mt-2 sm:mb-5;
+  }
+  .product-section-header::before,
+  .product-section-header::after {
+    content: '';
+    @apply flex-1 h-px bg-border;
+  }
+  .product-section-header span {
+    @apply font-cormorant italic text-muted/60 text-sm tracking-[0.18em] uppercase whitespace-nowrap;
+  }
+
   /* ── Admin sidebar ──────────────────────────────────────── */
   /* ── Veg / Non-Veg indicator (FSSAI square + dot) ─────────── */
   .veg-dot {

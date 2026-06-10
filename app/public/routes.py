@@ -26,9 +26,36 @@ def index():
 
 @public_bp.route("/products")
 def products():
-    all_products = Product.query.filter_by(is_available=True).order_by(Product.created_at.desc()).all()
-    categories = [e.value for e in CategoryEnum]
-    return render_template("public/products.html", products=all_products, categories=categories)
+    _patisserie = [
+        CategoryEnum.CAKES, CategoryEnum.TARTS, CategoryEnum.ECLAIRS,
+        CategoryEnum.MACARONS, CategoryEnum.CROISSANTS, CategoryEnum.BOXES,
+    ]
+    _restaurant = [
+        CategoryEnum.SOUPS, CategoryEnum.SALADS, CategoryEnum.STARTERS,
+        CategoryEnum.EXTRAS, CategoryEnum.FRENCH_TOAST, CategoryEnum.PANCAKES,
+        CategoryEnum.WAFFLES, CategoryEnum.BREAKFAST, CategoryEnum.OMELETTES,
+    ]
+    patisserie_products = (
+        Product.query
+        .filter(Product.is_available == True, Product.category.in_(_patisserie))
+        .order_by(Product.category, Product.created_at.asc())
+        .all()
+    )
+    restaurant_products = (
+        Product.query
+        .filter(Product.is_available == True, Product.category.in_(_restaurant))
+        .order_by(Product.category, Product.created_at.asc())
+        .all()
+    )
+    patisserie_cats = [e.value for e in _patisserie]
+    restaurant_cats = [e.value for e in _restaurant]
+    return render_template(
+        "public/products.html",
+        patisserie_products=patisserie_products,
+        restaurant_products=restaurant_products,
+        patisserie_cats=patisserie_cats,
+        restaurant_cats=restaurant_cats,
+    )
 
 
 @public_bp.route("/products/<slug>")
