@@ -32,20 +32,23 @@ def products():
     ]
     _restaurant = [
         CategoryEnum.SOUPS, CategoryEnum.SALADS, CategoryEnum.STARTERS,
-        CategoryEnum.EXTRAS, CategoryEnum.FRENCH_TOAST, CategoryEnum.PANCAKES,
+        CategoryEnum.FRENCH_TOAST, CategoryEnum.PANCAKES,
         CategoryEnum.WAFFLES, CategoryEnum.BREAKFAST, CategoryEnum.OMELETTES,
+        CategoryEnum.EXTRAS,
     ]
+    _restaurant_order = {cat: i for i, cat in enumerate(_restaurant)}
+
     patisserie_products = (
         Product.query
         .filter(Product.is_available == True, Product.category.in_(_patisserie))
         .order_by(Product.category, Product.created_at.asc())
         .all()
     )
-    restaurant_products = (
+    restaurant_products = sorted(
         Product.query
         .filter(Product.is_available == True, Product.category.in_(_restaurant))
-        .order_by(Product.category, Product.created_at.asc())
-        .all()
+        .all(),
+        key=lambda p: (_restaurant_order.get(p.category, 99), p.created_at or 0)
     )
     patisserie_cats = [e.value for e in _patisserie]
     restaurant_cats = [e.value for e in _restaurant]
