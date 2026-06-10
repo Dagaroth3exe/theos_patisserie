@@ -276,7 +276,7 @@
 
   /* ── Navbar ─────────────────────────────────────────────── */
   .site-nav {
-    @apply fixed top-3 inset-x-0 z-50
+    @apply fixed top-0 inset-x-0 z-50
            bg-cream-dark
            transition-all duration-300;
     border-bottom: 1px solid transparent;
@@ -356,6 +356,31 @@
   /* ── Section divider ────────────────────────────────────── */
   .section-divider {
     @apply w-16 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto my-4;
+  }
+
+  /* ── Category chips (filter bar) ───────────────────────────── */
+  .category-chip {
+    @apply relative inline-flex items-center whitespace-nowrap
+           px-5 py-4 text-sm font-medium text-muted/70
+           transition-colors duration-200 cursor-pointer select-none;
+    background: transparent;
+    border: none;
+    outline: none;
+  }
+  .category-chip::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-espresso;
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+  }
+  .category-chip:hover {
+    @apply text-espresso;
+  }
+  .category-chip.active-chip {
+    @apply text-espresso font-semibold;
+  }
+  .category-chip.active-chip::after {
+    transform: scaleX(1);
   }
 
   /* ── Admin sidebar ──────────────────────────────────────── */

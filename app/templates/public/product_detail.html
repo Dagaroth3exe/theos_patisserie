@@ -3,8 +3,8 @@
 {% block meta_description %}{{ product.description[:120] if product.description else product.name }} — Theos Patisserie{% endblock %}
 
 {% block content %}
-  <div class="max-w-6xl mx-auto px-6 py-16">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+    <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20">
 
       <!-- Image -->
       <div class="relative">
@@ -36,11 +36,11 @@
         </a>
 
         <span class="category-pill mb-3 inline-block w-fit">{{ product.category.value }}</span>
-        <h1 class="font-serif text-4xl lg:text-5xl text-espresso leading-tight mb-4" data-reveal="heading">
+        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight mb-4" data-reveal="heading">
           {{ product.name }}
         </h1>
 
-        <p class="font-bold text-3xl text-espresso mb-6">₹{{ "%.0f"|format(product.price) }}</p>
+        <p class="font-bold text-2xl sm:text-3xl text-espresso mb-5 sm:mb-6">₹{{ "%.0f"|format(product.price) }}</p>
 
         {% if product.description %}
           <p class="text-muted leading-relaxed text-base mb-6">{{ product.description }}</p>

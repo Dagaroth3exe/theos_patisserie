@@ -4,25 +4,25 @@
 {% block content %}
 
   <!-- Header with storefront banner -->
-  <div class="relative overflow-hidden" style="height: 340px;">
+  <div class="relative overflow-hidden -mt-20 sm:-mt-24 lg:-mt-36" style="height: clamp(270px, 42vw, 440px);">
     <img src="{{ url_for('static', filename='images/img-storefront-salad.jpg') }}"
          class="absolute inset-0 w-full h-full object-cover" alt="Theos Patisserie storefront">
-    <div class="absolute inset-0 bg-espresso/50"></div>
-    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+    <div class="absolute inset-0 bg-espresso/55"></div>
+    <div class="relative z-10 h-full flex flex-col items-center justify-center text-center px-6 pt-20 sm:pt-24 lg:pt-36">
       <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3">Get in Touch</p>
       <div class="section-divider"></div>
-      <h1 class="font-serif text-4xl lg:text-5xl text-cream mt-4" data-reveal="heading">Contact Us</h1>
-      <p class="font-cormorant text-cream/75 text-lg mt-3">
+      <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-cream mt-4" data-reveal="heading">Contact Us</h1>
+      <p class="font-cormorant text-cream/75 text-lg mt-3 hidden sm:block">
         We'd love to hear from you.
       </p>
     </div>
   </div>
 
-  <div class="max-w-5xl mx-auto px-6 py-16">
-    <div class="grid md:grid-cols-2 gap-10">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
+    <div class="grid md:grid-cols-2 gap-6 sm:gap-10">
 
       <!-- Noida -->
-      <div class="card p-8">
+      <div class="card p-6 sm:p-8">
         <div class="flex items-start gap-4 mb-6">
           <div class="w-10 h-10 rounded-full bg-espresso/10 flex items-center justify-center shrink-0">
             <svg class="w-5 h-5 text-espresso" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@
             <span class="section-kicker text-xs">Uttar Pradesh</span>
           </div>
         </div>
-        <div class="flex flex-col gap-4 text-sm text-muted pl-14">
+        <div class="flex flex-col gap-4 text-sm text-muted pl-0 sm:pl-14">
           <div>
             <p class="font-semibold text-espresso mb-0.5">Sector 39</p>
             <p>Sector 39, Noida</p>
@@ -50,7 +50,7 @@
       </div>
 
       <!-- Delhi -->
-      <div class="card p-8">
+      <div class="card p-6 sm:p-8">
         <div class="flex items-start gap-4 mb-6">
           <div class="w-10 h-10 rounded-full bg-espresso/10 flex items-center justify-center shrink-0">
             <svg class="w-5 h-5 text-espresso" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +63,7 @@
             <span class="section-kicker text-xs">NCT</span>
           </div>
         </div>
-        <div class="flex flex-col gap-4 text-sm text-muted pl-14">
+        <div class="flex flex-col gap-4 text-sm text-muted pl-0 sm:pl-14">
           <div>
             <p class="font-semibold text-espresso mb-0.5">Defence Colony</p>
             <p>Defence Colony, New Delhi</p>
@@ -80,7 +80,7 @@
     </div>
 
     <!-- Email / Social -->
-    <div class="mt-10 grid md:grid-cols-2 gap-6">
+    <div class="mt-6 sm:mt-10 grid md:grid-cols-2 gap-4 sm:gap-6">
       <div class="card p-6 flex items-center gap-4">
         <div class="w-10 h-10 rounded-full bg-espresso text-cream flex items-center justify-center shrink-0">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,7 +106,7 @@
     </div>
 
     <!-- Order CTA -->
-    <div class="mt-12 text-center bg-cream-dark/50 rounded-2xl py-10 px-8 border border-border">
+    <div class="mt-8 sm:mt-12 text-center bg-cream-dark/50 rounded-2xl py-8 sm:py-10 px-5 sm:px-8 border border-border">
       <h3 class="font-serif text-2xl text-espresso mb-3">Ready to Order?</h3>
       <p class="text-muted mb-6 max-w-md mx-auto">Place a custom order enquiry and we'll be in touch within 24 hours.</p>
       <a href="{{ url_for('public.order') }}" class="btn-primary px-10 py-3.5">Place an Enquiry</a>

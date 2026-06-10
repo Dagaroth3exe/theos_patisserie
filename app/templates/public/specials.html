@@ -4,21 +4,21 @@
 {% block content %}
 
   <!-- Page header -->
-  <div class="bg-espresso text-cream py-20 px-6 text-center relative overflow-hidden">
+  <div class="bg-espresso text-cream relative overflow-hidden -mt-20 sm:-mt-24 lg:-mt-36">
     <div class="absolute inset-0 bg-gradient-to-br from-espresso via-espresso-light to-espresso opacity-80"></div>
-    <div class="relative z-10">
+    <div class="relative z-10 pt-20 sm:pt-24 lg:pt-36 pb-14 sm:pb-20 px-6 text-center">
       <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3">Limited Time</p>
       <div class="w-16 h-px bg-gradient-to-r from-transparent via-gold to-transparent mx-auto my-4"></div>
-      <h1 class="font-serif text-5xl lg:text-6xl text-cream font-bold mb-4" data-reveal="heading">
+      <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl text-cream font-bold mb-4" data-reveal="heading">
         Seasonal Specials
       </h1>
-      <p class="font-cormorant text-cream/60 text-lg max-w-xl mx-auto">
+      <p class="font-cormorant text-cream/60 text-base sm:text-lg max-w-xl mx-auto hidden sm:block">
         Crafted for the moment. Available while the season lasts — each special celebrates India's festivals and harvests with French finesse.
       </p>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-6 py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-16">
     {% if specials %}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {% for special in specials %}

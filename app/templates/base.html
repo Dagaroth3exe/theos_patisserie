@@ -11,6 +11,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/theos-logo-white.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/theos-logo-white.png') }}">
+
   <!-- Tailwind compiled CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
@@ -26,7 +30,7 @@
     <div id="intro-logo" style="opacity:0;transform:scale(0.88);">
       <img src="{{ url_for('static', filename='images/theos-logo.png') }}"
            alt="Theos Patisserie"
-           style="height:140px;width:auto;filter:invert(1);">
+           style="height:clamp(72px,14vw,140px);width:auto;filter:invert(1);">
     </div>
     <div id="intro-rule" style="width:0;height:1px;background:linear-gradient(to right,transparent,#c9a84c,transparent);margin-top:1.4rem;"></div>
     <p id="intro-sub" style="
@@ -40,13 +44,13 @@
   <!-- ── Navigation ──────────────────────────────────────────── -->
   <nav class="site-nav" id="site-nav">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
-      <div class="flex items-center justify-between py-0 h-24">
+      <div class="flex items-center justify-between py-0 h-16 sm:h-20 lg:h-24">
 
         <!-- Logo -->
         <a href="{{ url_for('public.index') }}" class="flex items-center">
           <img src="{{ url_for('static', filename='images/theos-logo.png') }}"
                alt="Theos Patisserie"
-               class="h-28 w-auto">
+               class="h-20 sm:h-24 lg:h-28 w-auto">
         </a>
 
         <!-- Desktop nav — lowercase, light weight, centred -->
@@ -101,14 +105,14 @@
   {% endwith %}
 
   <!-- ── Main content ───────────────────────────────────────── -->
-  <main class="flex-1 pt-32 lg:pt-36">
+  <main class="flex-1 pt-20 sm:pt-24 lg:pt-36">
     {% block content %}{% endblock %}
   </main>
 
   <!-- ── Footer ─────────────────────────────────────────────── -->
   <footer class="bg-espresso text-cream/70 mt-16">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 mb-10 md:mb-12">
 
         <!-- Brand -->
         <div>

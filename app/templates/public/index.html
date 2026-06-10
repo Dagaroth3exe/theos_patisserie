@@ -5,7 +5,7 @@
 {% block content %}
 
 <!-- ── Hero ──────────────────────────────────────────────────── -->
-<section class="relative min-h-screen flex items-center overflow-hidden -mt-32 lg:-mt-36">
+<section class="relative min-h-screen flex items-center overflow-hidden -mt-20 sm:-mt-24 lg:-mt-36">
 
   <!-- Hero image carousel -->
   <div id="hero-carousel" class="absolute inset-0 z-0 overflow-hidden">
@@ -46,19 +46,19 @@
 
 
   <!-- Hero content -->
-  <div class="relative z-30 max-w-4xl mx-auto px-6 text-center py-24">
-    <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-4 animate-fade-up">
+  <div class="relative z-30 max-w-4xl mx-auto px-6 text-center py-20 sm:py-24">
+    <p class="font-cormorant italic text-gold text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 animate-fade-up">
       Artisan Patisserie &nbsp;·&nbsp; Noida &amp; Delhi
     </p>
-    <h1 class="hero-headline font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-cream leading-none mb-6">
+    <h1 class="hero-headline font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-cream leading-none mb-5 sm:mb-6">
       Where Every<br>Bite Is<br><span class="brand-shimmer">Extraordinary</span>
     </h1>
-    <p class="hero-sub font-cormorant text-xl text-cream/75 leading-relaxed max-w-xl mx-auto mb-10">
+    <p class="hero-sub font-cormorant text-lg sm:text-xl text-cream/75 leading-relaxed max-w-xl mx-auto mb-8 sm:mb-10">
       Handcrafted macarons, éclairs, entremets, and seasonal confections — made with the finest ingredients and a devotion to the art of French patisserie.
     </p>
-    <div class="hero-cta flex flex-wrap items-center justify-center gap-4">
-      <a href="{{ url_for('public.products') }}" class="btn-primary text-base px-10 py-3.5">Explore Our Menu</a>
-      <a href="{{ url_for('public.order') }}" class="btn-outline-light text-base px-8 py-3">Place an Enquiry</a>
+    <div class="hero-cta flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+      <a href="{{ url_for('public.products') }}" class="btn-primary text-sm sm:text-base px-8 sm:px-10 py-3 sm:py-3.5 w-full sm:w-auto text-center">Explore Our Menu</a>
+      <a href="{{ url_for('public.order') }}" class="btn-outline-light text-sm sm:text-base px-7 sm:px-8 py-3 w-full sm:w-auto text-center">Place an Enquiry</a>
     </div>
   </div>
 
@@ -81,16 +81,16 @@
 
 
 <!-- ── Featured Products ──────────────────────────────────────── -->
-<section class="py-20 lg:py-28 px-6">
+<section class="py-14 sm:py-20 lg:py-28 px-4 sm:px-6">
   <div class="max-w-7xl mx-auto">
 
-    <div class="text-center mb-14">
+    <div class="text-center mb-10 sm:mb-14">
       <p class="section-kicker mb-3" data-reveal="kicker">Signature Collection</p>
       <div class="section-divider"></div>
-      <h2 class="font-serif text-4xl lg:text-5xl text-espresso mt-4" data-reveal="heading">
+      <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso mt-4" data-reveal="heading">
         Crafted to Perfection
       </h2>
-      <p class="text-muted font-cormorant text-lg mt-3 max-w-xl mx-auto">
+      <p class="text-muted font-cormorant text-base sm:text-lg mt-3 max-w-xl mx-auto">
         Our most beloved creations — each one a labour of love and the finest French technique.
       </p>
     </div>
@@ -114,27 +114,27 @@
 
 <!-- ── Seasonal Teaser ────────────────────────────────────────── -->
 {% if seasonals %}
-<section class="relative bg-espresso text-cream py-20 lg:py-24 px-6 overflow-hidden">
+<section class="relative bg-espresso text-cream py-14 sm:py-20 lg:py-24 px-4 sm:px-6 overflow-hidden">
   <!-- Mango trifle as a subtle warmth layer behind the dark section -->
   <div class="absolute inset-0 z-0">
     <img src="{{ url_for('static', filename='images/img-mango-trifle.jpg') }}"
          class="w-full h-full object-cover opacity-10" alt="">
   </div>
   <div class="relative z-10 max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
       <div>
         <p class="font-cormorant italic text-gold text-sm tracking-[0.2em] uppercase mb-3" data-reveal="kicker">Limited &amp; Seasonal</p>
-        <h2 class="font-serif text-4xl lg:text-5xl text-cream leading-tight mb-5" data-reveal="heading">
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-cream leading-tight mb-4 sm:mb-5" data-reveal="heading">
           What's<br>In Season
         </h2>
-        <p class="font-cormorant text-cream/60 text-lg leading-relaxed mb-8">
+        <p class="font-cormorant text-cream/60 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
           Crafted for the moment, available while the season lasts. Our seasonal creations celebrate India's festivals, harvests, and celebrations with French finesse.
         </p>
         <a href="{{ url_for('public.specials') }}" class="btn-outline-gold">View Seasonal Menu</a>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {% for special in seasonals %}
           <div class="rounded-2xl border border-cream/10 bg-cream/5 p-6 hover:bg-cream/10 transition-colors duration-300">
             {% if special.image_filename %}
@@ -164,14 +164,14 @@
 
 <!-- ── Instagram Reels ───────────────────────────────────────── -->
 {% if reel_videos %}
-<section class="py-20 lg:py-24 px-6 bg-espresso overflow-hidden">
+<section class="py-14 sm:py-20 lg:py-24 px-4 sm:px-6 bg-espresso overflow-hidden">
   <div class="max-w-7xl mx-auto">
 
     <!-- Header -->
-    <div class="flex items-end justify-between mb-12">
+    <div class="flex items-end justify-between mb-8 sm:mb-12">
       <div>
         <p class="font-cormorant italic text-gold text-sm tracking-[0.22em] uppercase mb-2">Follow Along</p>
-        <h2 class="font-serif text-3xl lg:text-4xl text-cream leading-tight">On Our Feed</h2>
+        <h2 class="font-serif text-2xl sm:text-3xl lg:text-4xl text-cream leading-tight">On Our Feed</h2>
       </div>
       <a href="https://www.instagram.com/theosfoodindia/"
          target="_blank" rel="noopener"
@@ -184,16 +184,16 @@
     </div>
 
     <!-- Reel carousel -->
-    <div class="flex items-center gap-5 lg:gap-8">
+    <div class="flex items-center gap-3 sm:gap-5 lg:gap-8">
 
       <!-- Left arrow -->
       <button id="reels-prev" aria-label="Previous"
-              class="flex-none w-14 h-14 rounded-full
+              class="flex-none w-10 h-10 sm:w-14 sm:h-14 rounded-full
                      flex items-center justify-center
                      border-2 border-gold text-gold
                      hover:bg-gold hover:text-espresso
                      transition-all duration-300 group">
-        <svg class="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-0.5"
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:-translate-x-0.5"
              fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
         </svg>
@@ -201,14 +201,14 @@
 
       <!-- Track viewport -->
       <div class="flex-1 overflow-hidden" id="reels-viewport">
-        <div class="flex" id="reels-track" style="will-change:transform;gap:16px;">
+        <div class="flex" id="reels-track" style="will-change:transform;gap:12px;">
           {% for video in reel_videos %}
-            <div class="reel-item flex-none rounded-2xl overflow-hidden relative group"
+            <div class="reel-item flex-none rounded-xl sm:rounded-2xl overflow-hidden relative group"
                  style="aspect-ratio:9/16;">
               <video class="w-full h-full object-cover"
                      autoplay muted loop playsinline
                      src="{{ url_for('static', filename='videos/' ~ video) }}"></video>
-              <div class="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/20 transition-colors duration-300 pointer-events-none rounded-2xl"></div>
+              <div class="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/20 transition-colors duration-300 pointer-events-none rounded-xl sm:rounded-2xl"></div>
             </div>
           {% endfor %}
         </div>
@@ -216,12 +216,12 @@
 
       <!-- Right arrow -->
       <button id="reels-next" aria-label="Next"
-              class="flex-none w-14 h-14 rounded-full
+              class="flex-none w-10 h-10 sm:w-14 sm:h-14 rounded-full
                      flex items-center justify-center
                      border-2 border-gold text-gold
                      hover:bg-gold hover:text-espresso
                      transition-all duration-300 group">
-        <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5"
+        <svg class="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-0.5"
              fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
         </svg>
@@ -230,13 +230,13 @@
     </div>
 
     <!-- Instagram CTA -->
-    <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <div class="mt-8 sm:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
       <a href="https://www.instagram.com/theosfoodindia/"
          target="_blank" rel="noopener"
          class="inline-flex items-center gap-3 border border-gold/40 hover:border-gold
                 text-gold hover:text-espresso bg-transparent hover:bg-gold
                 font-cormorant italic tracking-[0.18em] uppercase text-sm px-8 py-3
-                rounded transition-all duration-400 group">
+                rounded transition-all duration-400 group w-full sm:w-auto justify-center">
         <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
         </svg>
@@ -255,20 +255,26 @@
   const nextBtn  = document.getElementById('reels-next');
   if (!track) return;
 
-  const VISIBLE = 4;
-  const GAP     = 16;
-  let offset    = 0;
+  const GAP = 12;
+  let offset = 0;
+
+  function getVisible() {
+    const w = window.innerWidth;
+    if (w < 640)  return 1;
+    if (w < 1024) return 2;
+    return 4;
+  }
 
   function setItemWidths() {
-    const vw = viewport.offsetWidth;
-    const w  = (vw - GAP * (VISIBLE - 1)) / VISIBLE;
+    const vis = getVisible();
+    const vw  = viewport.offsetWidth;
+    const w   = (vw - GAP * (vis - 1)) / vis;
     track.querySelectorAll('.reel-item').forEach(el => el.style.width = w + 'px');
-    track.style.gap = GAP + 'px';
   }
 
   function pageWidth() {
     const item = track.querySelector('.reel-item');
-    return item ? (item.offsetWidth + GAP) * VISIBLE : 0;
+    return item ? (item.offsetWidth + GAP) * getVisible() : 0;
   }
 
   function maxOffset() {
@@ -291,9 +297,7 @@
     updateArrows();
   }
 
-  // Wait for full layout before measuring
   window.addEventListener('load', init);
-  // Fallback in case load already fired
   if (document.readyState === 'complete') init();
 
   window.addEventListener('resize', () => {
@@ -305,15 +309,23 @@
 
   prevBtn.addEventListener('click', () => slide(-1));
   nextBtn.addEventListener('click', () => slide(1));
+
+  // Touch swipe support
+  let touchStartX = 0;
+  viewport.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  viewport.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) slide(dx < 0 ? 1 : -1);
+  });
 })();
 </script>
 {% endif %}
 
 
 <!-- ── Category Showcase ──────────────────────────────────────── -->
-<section class="py-16 px-6 border-y border-border">
+<section class="py-10 sm:py-16 px-4 sm:px-6 border-y border-border">
   <div class="max-w-7xl mx-auto">
-    <div class="flex gap-6 lg:gap-10 overflow-x-auto scrollbar-hide pb-2 justify-start lg:justify-center">
+    <div class="flex gap-5 sm:gap-6 lg:gap-10 overflow-x-auto scrollbar-hide pb-2 justify-start lg:justify-center">
       {% set cat_icons = {
         "Cakes":      "🎂",
         "Macarons":   "🍪",
@@ -337,14 +349,14 @@
 
 
 <!-- ── Inside Theos — editorial full-bleed interior ──────────── -->
-<section class="py-16 px-6 lg:px-12">
+<section class="py-10 sm:py-16 px-4 sm:px-6 lg:px-12">
   <div class="max-w-7xl mx-auto">
-    <div class="overflow-hidden rounded-3xl shadow-lg" style="height: 520px;">
+    <div class="overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg" style="height: clamp(200px, 42vw, 520px);">
       <img src="{{ url_for('static', filename='images/img-interior-wide.jpg') }}"
            class="w-full h-full object-cover object-center hover:scale-[1.02] transition-transform duration-1000 ease-in-out"
            alt="Inside Theos Patisserie" loading="lazy">
     </div>
-    <p class="font-cormorant italic text-taupe text-sm text-center mt-4 tracking-widest">
+    <p class="font-cormorant italic text-taupe text-sm text-center mt-3 sm:mt-4 tracking-widest">
       Inside Theos &nbsp;·&nbsp; Sector 39, Noida
     </p>
   </div>
@@ -352,9 +364,9 @@
 
 
 <!-- ── A Closer Look ──────────────────────────────────────────── -->
-<section class="pb-16 px-6 lg:px-12">
+<section class="pb-10 sm:pb-16 px-4 sm:px-6 lg:px-12">
   <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
       <div class="aspect-[4/3] overflow-hidden rounded-xl shadow-sm group cursor-pointer">
         <img src="{{ url_for('static', filename='images/img-cupcakes-closeup.jpg') }}"
              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -381,25 +393,25 @@
 
 
 <!-- ── Brand Story CTA ────────────────────────────────────────── -->
-<section class="py-20 lg:py-28 px-6">
+<section class="py-14 sm:py-20 lg:py-28 px-4 sm:px-6">
   <div class="max-w-7xl mx-auto">
-    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <div class="grid md:grid-cols-2 gap-10 lg:gap-20 items-center">
 
       <div class="story-section">
         <p class="section-kicker mb-4" data-reveal="kicker">Our Story</p>
-        <blockquote class="font-cormorant italic text-3xl lg:text-4xl text-espresso leading-snug mb-6 story-text" data-reveal="heading">
+        <blockquote class="font-cormorant italic text-2xl sm:text-3xl lg:text-4xl text-espresso leading-snug mb-5 sm:mb-6 story-text" data-reveal="heading">
           "Baking is not just what we do — it is who we are."
         </blockquote>
-        <p class="text-muted leading-relaxed mb-6 story-text">
+        <p class="text-muted leading-relaxed mb-5 sm:mb-6 story-text text-sm sm:text-base">
           Born from a love of French patisserie and a deep appreciation for India's rich culinary heritage, Theos Patisserie brings together two worlds in every creation. Our pastry chefs train in classical technique, but their hearts belong to the spice markets of Noida.
         </p>
-        <p class="text-muted leading-relaxed mb-8 story-text">
+        <p class="text-muted leading-relaxed mb-7 sm:mb-8 story-text text-sm sm:text-base">
           Every macaron, every éclair, every hand-painted entremet that leaves our kitchen is a testament to this belief — that luxury is not just a price tag, but a feeling.
         </p>
-        <a href="{{ url_for('public.our_story') }}" class="btn-outline px-8 py-3">Read Our Story</a>
+        <a href="{{ url_for('public.our_story') }}" class="btn-outline px-8 py-3 w-full sm:w-auto text-center inline-block">Read Our Story</a>
       </div>
 
-      <div class="relative hidden lg:block">
+      <div class="relative hidden md:block">
         <div class="aspect-[3/4] rounded-3xl overflow-hidden shadow-xl" data-reveal="image">
           <img src="{{ url_for('static', filename='images/img-storefront-salad.jpg') }}"
                class="w-full h-full object-cover"
