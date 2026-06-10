@@ -1,8 +1,8 @@
 import os
-from flask import render_template, request, redirect, url_for, flash, current_app
+from flask import render_template, request, redirect, url_for, flash, current_app, jsonify
 from flask_mail import Message
 from app.public import public_bp
-from app.extensions import db, mail
+from app.extensions import db, mail, csrf
 from app.models import Product, Order, Seasonal, CategoryEnum
 from app.forms.order_form import OrderForm
 
@@ -125,6 +125,71 @@ def order_thank_you():
 @public_bp.route("/contact")
 def contact():
     return render_template("public/contact.html")
+
+
+@public_bp.route("/api/chat", methods=["POST"])
+@csrf.exempt
+def chat_api():
+    data = request.get_json(silent=True) or {}
+    user_message = str(data.get("message", "")).strip()[:500]
+    history = data.get("history", [])[-8:]  # last 4 turns max
+
+    if not user_message:
+        return jsonify({"error": "empty message"}), 400
+
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not api_key or api_key.startswith("sk-ant-..."):
+        return jsonify({"reply": "The AI assistant is not configured yet. Please contact the restaurant directly."}), 200
+
+    # Build live menu context from DB
+    products = Product.query.filter_by(is_available=True).order_by(Product.category).all()
+    menu_lines = []
+    current_cat = None
+    for p in products:
+        cat = p.category.value
+        if cat != current_cat:
+            menu_lines.append(f"\n{cat.upper()}:")
+            current_cat = cat
+        veg = "veg" if p.is_veg else "non-veg"
+        menu_lines.append(f"  • {p.name} — ₹{p.price:.0f}" + (f" ({veg})" if p.is_veg is not None else ""))
+
+    system_prompt = f"""You are the AI assistant for Theo's Patisserie & Chocolatier, a luxury French-style café and restaurant in Noida, India (also in Delhi NCR). You're knowledgeable, warm, and concise.
+
+About Theo's:
+- Upscale French patisserie and full-service restaurant
+- Signature items: macarons, éclairs, entremets, croissants, custom cakes
+- Restaurant serves: soups, salads, starters, breakfast, brunch, and more
+- Instagram: @theosfoodindia (26K followers)
+- For reservations or large orders, customers can use the "Place an Enquiry" form on the website
+
+Current Menu:
+{"".join(menu_lines)}
+
+Answer questions about the menu, ingredients, dietary options (veg/non-veg/gluten-free), pricing, occasions, pairings, and general restaurant info. Keep replies under 3 sentences unless listing items. If you don't know something specific (like today's hours), say so politely and suggest contacting the restaurant."""
+
+    try:
+        import anthropic as _anthropic
+        client = _anthropic.Anthropic(api_key=api_key)
+        messages = []
+        for turn in history:
+            role = turn.get("role")
+            content = str(turn.get("content", ""))[:300]
+            if role in ("user", "assistant") and content:
+                messages.append({"role": role, "content": content})
+        messages.append({"role": "user", "content": user_message})
+
+        resp = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=350,
+            system=system_prompt,
+            messages=messages,
+        )
+        reply = resp.content[0].text
+    except Exception as e:
+        current_app.logger.error(f"Chat API error: {e}")
+        reply = "I'm having a moment — please try again or contact us directly."
+
+    return jsonify({"reply": reply})
 
 
 def _send_order_emails(order):
