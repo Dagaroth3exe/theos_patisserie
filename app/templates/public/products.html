@@ -21,41 +21,63 @@
 
   <!-- ── Sticky filter bar ─────────────────────────────────── -->
   <div id="filter-bar" class="sticky z-40 bg-cream border-b border-border/60">
-    <div class="max-w-7xl mx-auto px-5 sm:px-8">
-      <div class="overflow-x-auto scrollbar-hide">
-        <div class="flex items-stretch gap-0 min-w-max sm:flex-wrap sm:min-w-0 sm:justify-center"
-             id="category-filters">
+    <div class="max-w-7xl mx-auto">
 
-          <!-- All -->
+      <!-- Mobile: single scrollable row ──────────────────────── -->
+      <div class="sm:hidden overflow-x-auto scrollbar-hide px-4">
+        <div class="flex items-stretch min-w-max">
           <button class="category-chip" data-filter="all">All</button>
-
-          <!-- Group separator + Patisserie group -->
           <span class="filter-group-sep" aria-hidden="true"></span>
-          <span class="filter-group-label hidden sm:flex">Patisserie</span>
           {% for cat in patisserie_cats %}
             <button class="category-chip" data-filter="{{ cat }}">{{ cat }}</button>
           {% endfor %}
-
-          <!-- Group separator + Restaurant group -->
           <span class="filter-group-sep" aria-hidden="true"></span>
-          <span class="filter-group-label hidden sm:flex">Restaurant</span>
           {% for cat in restaurant_cats %}
             <button class="category-chip" data-filter="{{ cat }}">{{ cat }}</button>
           {% endfor %}
-
         </div>
+      </div>
+
+      <!-- Desktop: two-row grouped layout ─────────────────────── -->
+      <div class="hidden sm:block px-8">
+
+        <!-- All row -->
+        <div class="flex items-center border-b border-border/40">
+          <button class="category-chip font-medium" data-filter="all">All Items</button>
+        </div>
+
+        <!-- Patisserie row -->
+        <div class="flex items-start border-b border-border/20">
+          <span class="filter-row-label">Patisserie</span>
+          <div class="flex flex-wrap flex-1">
+            {% for cat in patisserie_cats %}
+              <button class="category-chip" data-filter="{{ cat }}">{{ cat }}</button>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Restaurant row -->
+        <div class="flex items-start">
+          <span class="filter-row-label">Restaurant</span>
+          <div class="flex flex-wrap flex-1">
+            {% for cat in restaurant_cats %}
+              <button class="category-chip" data-filter="{{ cat }}">{{ cat }}</button>
+            {% endfor %}
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
     {% if patisserie_products or restaurant_products %}
 
       <!-- ══════════════════════════════════════════════════════
            MOBILE LIST VIEW (sm:hidden)
            ══════════════════════════════════════════════════════ -->
-      <div class="sm:hidden" id="product-list-mobile">
+      <div class="sm:hidden">
 
         {% macro mobile_item(product) %}
           <a href="{{ url_for('public.product_detail', slug=product.slug) }}"
@@ -96,16 +118,12 @@
         {% endmacro %}
 
         {% if patisserie_products %}
-          <div class="product-section-header" data-section-header>
-            <span>Patisserie</span>
-          </div>
+          <div class="section-group-heading" data-section-header>Patisserie</div>
           {% for product in patisserie_products %}{{ mobile_item(product) }}{% endfor %}
         {% endif %}
 
         {% if restaurant_products %}
-          <div class="product-section-header" data-section-header>
-            <span>Restaurant</span>
-          </div>
+          <div class="section-group-heading" data-section-header>Restaurant</div>
           {% for product in restaurant_products %}{{ mobile_item(product) }}{% endfor %}
         {% endif %}
 
@@ -158,18 +176,14 @@
         {% endmacro %}
 
         {% if patisserie_products %}
-          <div class="product-section-header" data-section-header>
-            <span>Patisserie</span>
-          </div>
-          <div class="product-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
+          <div class="section-group-heading" data-section-header>Patisserie</div>
+          <div class="product-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-14">
             {% for product in patisserie_products %}{{ desktop_card(product) }}{% endfor %}
           </div>
         {% endif %}
 
         {% if restaurant_products %}
-          <div class="product-section-header" data-section-header>
-            <span>Restaurant</span>
-          </div>
+          <div class="section-group-heading" data-section-header>Restaurant</div>
           <div class="product-grid grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {% for product in restaurant_products %}{{ desktop_card(product) }}{% endfor %}
           </div>

@@ -383,26 +383,32 @@
     transform: scaleX(1);
   }
 
-  /* ── Filter bar group separators & labels ─────────────────── */
+  /* ── Filter bar group separators ───────────────────────────── */
   .filter-group-sep {
     @apply self-stretch w-px bg-border/70 mx-2 my-2;
   }
-  .filter-group-label {
-    @apply self-center items-center font-cormorant italic text-muted/50
-           text-xs tracking-widest whitespace-nowrap pr-1;
+
+  /* ── Filter bar desktop row label ───────────────────────────── */
+  .filter-row-label {
+    @apply font-cormorant italic text-taupe text-sm tracking-wide
+           whitespace-nowrap pt-4 pb-2 pr-4
+           flex-shrink-0;
+    width: 7rem;
   }
 
-  /* ── Product section headers ──────────────────────────────── */
-  .product-section-header {
-    @apply flex items-center gap-4 my-6 sm:mt-2 sm:mb-5;
+  /* ── Section group headings (Patisserie / Restaurant) ────────── */
+  .section-group-heading {
+    @apply font-serif text-espresso text-2xl sm:text-3xl
+           text-center pt-8 pb-3 sm:pt-10 sm:pb-4;
+    position: relative;
   }
-  .product-section-header::before,
-  .product-section-header::after {
+  .section-group-heading::after {
     content: '';
-    @apply flex-1 h-px bg-border;
-  }
-  .product-section-header span {
-    @apply font-cormorant italic text-muted/60 text-sm tracking-[0.18em] uppercase whitespace-nowrap;
+    display: block;
+    width: 3rem;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #c9a84c, transparent);
+    margin: 0.5rem auto 0;
   }
 
   /* ── Admin sidebar ──────────────────────────────────────── */
