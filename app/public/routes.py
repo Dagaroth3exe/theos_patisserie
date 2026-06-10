@@ -137,8 +137,8 @@ def chat_api():
     if not user_message:
         return jsonify({"error": "empty message"}), 400
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY", "")
-    if not api_key or api_key.startswith("sk-ant-..."):
+    api_key = os.environ.get("GEMINI_API_KEY", "")
+    if not api_key or api_key.startswith("AIza..."):
         return jsonify({"reply": "The AI assistant is not configured yet. Please contact the restaurant directly."}), 200
 
     # Build live menu context from DB
@@ -160,7 +160,7 @@ About Theo's:
 - Signature items: macarons, éclairs, entremets, croissants, custom cakes
 - Restaurant serves: soups, salads, starters, breakfast, brunch, and more
 - Instagram: @theosfoodindia (26K followers)
-- For reservations or large orders, customers can use the "Place an Enquiry" form on the website
+- For reservations or large orders, customers can use the Enquiry form on the website
 
 Current Menu:
 {"".join(menu_lines)}
@@ -168,23 +168,25 @@ Current Menu:
 Answer questions about the menu, ingredients, dietary options (veg/non-veg/gluten-free), pricing, occasions, pairings, and general restaurant info. Keep replies under 3 sentences unless listing items. If you don't know something specific (like today's hours), say so politely and suggest contacting the restaurant."""
 
     try:
-        import anthropic as _anthropic
-        client = _anthropic.Anthropic(api_key=api_key)
-        messages = []
+        from google import genai
+        from google.genai import types
+        client = genai.Client(api_key=api_key)
+        # Build history for multi-turn chat
+        chat_history = []
         for turn in history:
             role = turn.get("role")
             content = str(turn.get("content", ""))[:300]
-            if role in ("user", "assistant") and content:
-                messages.append({"role": role, "content": content})
-        messages.append({"role": "user", "content": user_message})
-
-        resp = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=350,
-            system=system_prompt,
-            messages=messages,
+            if role == "user" and content:
+                chat_history.append(types.Content(role="user", parts=[types.Part(text=content)]))
+            elif role == "assistant" and content:
+                chat_history.append(types.Content(role="model", parts=[types.Part(text=content)]))
+        chat = client.chats.create(
+            model="gemini-flash-lite-latest",
+            config=types.GenerateContentConfig(system_instruction=system_prompt),
+            history=chat_history,
         )
-        reply = resp.content[0].text
+        resp = chat.send_message(user_message)
+        reply = resp.text
     except Exception as e:
         current_app.logger.error(f"Chat API error: {e}")
         reply = "I'm having a moment — please try again or contact us directly."

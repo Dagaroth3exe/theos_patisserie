@@ -46,20 +46,89 @@
 
 
   <!-- Hero content -->
-  <div class="relative z-30 max-w-4xl mx-auto px-6 text-center py-20 sm:py-24">
-    <p class="font-cormorant italic text-gold text-xs sm:text-sm tracking-[0.2em] uppercase mb-4 animate-fade-up">
+  <div class="relative z-30 w-full max-w-3xl mx-auto px-5 sm:px-8 text-center pt-36 sm:pt-44 pb-14 sm:pb-16">
+
+    <p class="font-cormorant italic text-gold text-xs tracking-[0.2em] uppercase mb-3 animate-fade-up">
       Artisan Patisserie &nbsp;·&nbsp; Noida &amp; Delhi
     </p>
-    <h1 class="hero-headline font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-cream leading-none mb-5 sm:mb-6">
+    <h1 class="hero-headline font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-cream leading-tight mb-3 sm:mb-4">
       Where Every<br>Bite Is<br><span class="brand-shimmer">Extraordinary</span>
     </h1>
-    <p class="hero-sub font-cormorant text-lg sm:text-xl text-cream/75 leading-relaxed max-w-xl mx-auto mb-8 sm:mb-10">
-      Handcrafted macarons, éclairs, entremets, and seasonal confections — made with the finest ingredients and a devotion to the art of French patisserie.
+    <p class="hero-sub font-cormorant text-base sm:text-lg text-cream/70 leading-relaxed max-w-lg mx-auto mb-7 sm:mb-8">
+      Handcrafted macarons, éclairs, entremets, and seasonal confections — made with the finest French technique.
     </p>
-    <div class="hero-cta flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-      <a href="{{ url_for('public.products') }}" class="btn-primary text-sm sm:text-base px-8 sm:px-10 py-3 sm:py-3.5 w-full sm:w-auto text-center">Explore Our Menu</a>
-      <a href="{{ url_for('public.order') }}" class="btn-outline-light text-sm sm:text-base px-7 sm:px-8 py-3 w-full sm:w-auto text-center">Place an Enquiry</a>
+
+    <!-- ── AI Ask Bar ─────────────────────────────────────── -->
+    <div class="hero-cta w-full max-w-lg mx-auto mb-6 sm:mb-7">
+
+      <!-- Label -->
+      <p class="font-cormorant italic text-cream/45 text-xs tracking-[0.2em] uppercase mb-2">
+        ✦ &nbsp;Ask our AI assistant
+      </p>
+
+      <!-- Search bar -->
+      <div id="ai-bar"
+           class="flex items-center w-full transition-all duration-300"
+           style="background:rgba(26,18,8,0.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+                  border:1px solid rgba(201,168,76,0.45);border-radius:50px;
+                  box-shadow:0 0 0 0 rgba(201,168,76,0);">
+
+        <!-- Chat icon -->
+        <span class="pl-5 pr-2 flex-shrink-0" style="color:rgba(201,168,76,0.6);">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3v-3z"/>
+          </svg>
+        </span>
+
+        <!-- Input -->
+        <input id="ai-input" type="text"
+               placeholder="Ask about our menu, prices, dietary options…"
+               maxlength="300" autocomplete="off" spellcheck="false"
+               class="flex-1 bg-transparent py-3.5 text-sm text-cream placeholder-cream/35 outline-none"
+               style="font-family:'Inter',sans-serif;">
+
+        <!-- Send button -->
+        <button id="ai-send"
+                class="m-1.5 flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200"
+                style="background:rgba(201,168,76,0.2);border:1px solid rgba(201,168,76,0.5);"
+                aria-label="Ask">
+          <svg class="w-3.5 h-3.5" style="color:#c9a84c;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Suggestion chips -->
+      <div id="ai-chips" class="flex flex-wrap justify-center gap-2 mt-3">
+        <button class="ai-chip-btn">What's on the menu?</button>
+        <button class="ai-chip-btn">Best veg options</button>
+        <button class="ai-chip-btn">Price of macarons</button>
+        <button class="ai-chip-btn">Good for a birthday?</button>
+      </div>
+
+      <!-- Response card -->
+      <div id="ai-response"
+           class="hidden text-left mt-4 rounded-2xl px-5 py-4"
+           style="background:rgba(26,18,8,0.65);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+                  border:1px solid rgba(255,253,249,0.1);">
+        <!-- Typing indicator -->
+        <div id="ai-typing" class="items-center gap-1.5 py-1" style="display:none;">
+          <span class="ai-dot"></span><span class="ai-dot"></span><span class="ai-dot"></span>
+        </div>
+        <!-- Answer text -->
+        <p id="ai-answer" class="text-cream/88 text-sm leading-relaxed hidden"
+           style="font-family:'Inter',sans-serif;"></p>
+        <!-- Follow-up prompt -->
+        <button id="ai-clear"
+                class="hidden mt-3 font-cormorant italic text-gold/60 text-xs hover:text-gold/90 transition-colors"
+                style="background:none;border:none;cursor:pointer;padding:0;">
+          ← Ask another question
+        </button>
+      </div>
+
     </div>
+
   </div>
 
   <!-- Carousel dot indicators -->
@@ -78,207 +147,57 @@
     </svg>
   </div>
 
-  <!-- ── AI Chat Widget ──────────────────────────────────────── -->
-  <div id="chat-widget" class="absolute bottom-28 right-4 sm:right-8 z-40 flex flex-col items-end">
-
-    <!-- Chat panel (hidden by default, opens upward) -->
-    <div id="chat-panel"
-         class="hidden mb-3 w-[320px] sm:w-[360px] rounded-2xl overflow-hidden shadow-2xl"
-         style="background:rgba(26,18,8,0.96);backdrop-filter:blur(12px);border:1px solid rgba(255,253,249,0.12);">
-
-      <!-- Header -->
-      <div class="flex items-center justify-between px-4 py-3"
-           style="border-bottom:1px solid rgba(255,253,249,0.1);">
-        <div class="flex items-center gap-2.5">
-          <span class="w-2 h-2 rounded-full bg-green-400" style="box-shadow:0 0 6px #4ade80;"></span>
-          <span class="font-cormorant italic text-cream text-base tracking-wide">Theo's AI Assistant</span>
-        </div>
-        <button id="chat-close"
-                class="text-cream/40 hover:text-cream transition-colors duration-200 leading-none text-lg"
-                aria-label="Close chat">✕</button>
-      </div>
-
-      <!-- Messages -->
-      <div id="chat-messages"
-           class="flex flex-col gap-3 p-4 overflow-y-auto"
-           style="height:280px;scrollbar-width:thin;scrollbar-color:rgba(255,253,249,0.15) transparent;">
-        <!-- Initial bot message -->
-        <div class="chat-bot-msg">
-          <p>Welcome to Theo's! Ask me about our menu, prices, dietary options, or anything else. How can I help?</p>
-        </div>
-      </div>
-
-      <!-- Suggested questions (shown initially) -->
-      <div id="chat-suggestions" class="flex flex-wrap gap-1.5 px-4 pb-3">
-        <button class="chat-suggestion">What's on the menu?</button>
-        <button class="chat-suggestion">Any veg options?</button>
-        <button class="chat-suggestion">Price of macarons?</button>
-      </div>
-
-      <!-- Input row -->
-      <div class="flex items-center gap-2 px-3 py-2.5"
-           style="border-top:1px solid rgba(255,253,249,0.1);">
-        <input id="chat-input"
-               type="text"
-               placeholder="Ask anything about our menu…"
-               maxlength="300"
-               autocomplete="off"
-               class="flex-1 bg-transparent text-cream text-sm placeholder-cream/30 outline-none font-sans">
-        <button id="chat-send"
-                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-200"
-                style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.35);"
-                aria-label="Send">
-          <svg class="w-3.5 h-3.5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Toggle button -->
-    <button id="chat-toggle"
-            class="flex items-center gap-2.5 rounded-full px-5 py-3 transition-all duration-300 shadow-xl"
-            style="background:rgba(26,18,8,0.85);backdrop-filter:blur(10px);border:1px solid rgba(201,168,76,0.4);"
-            aria-label="Open chat">
-      <svg class="w-4 h-4 flex-shrink-0" style="color:#c9a84c;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-3 3v-3z"/>
-      </svg>
-      <span class="font-cormorant italic text-cream text-sm tracking-wide">Ask anything</span>
-    </button>
-
-  </div>
-
-  <style>
-    .chat-bot-msg {
-      background: rgba(255,253,249,0.07);
-      border-radius: 0 12px 12px 12px;
-      padding: 10px 13px;
-      max-width: 88%;
-      align-self: flex-start;
-    }
-    .chat-bot-msg p {
-      color: rgba(255,253,249,0.88);
-      font-size: 0.8125rem;
-      line-height: 1.55;
-    }
-    .chat-user-msg {
-      background: rgba(201,168,76,0.18);
-      border-radius: 12px 12px 0 12px;
-      padding: 10px 13px;
-      max-width: 88%;
-      align-self: flex-end;
-      border: 1px solid rgba(201,168,76,0.25);
-    }
-    .chat-user-msg p {
-      color: rgba(255,253,249,0.92);
-      font-size: 0.8125rem;
-      line-height: 1.55;
-      text-align: right;
-    }
-    .chat-typing {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-      padding: 4px 6px;
-    }
-    .chat-typing span {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: rgba(255,253,249,0.45);
-      animation: chatDot 1.2s ease-in-out infinite;
-    }
-    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
-    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes chatDot {
-      0%,80%,100% { transform: scale(0.6); opacity: 0.4; }
-      40%          { transform: scale(1);   opacity: 1;   }
-    }
-    .chat-suggestion {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 0.7rem;
-      color: rgba(201,168,76,0.75);
-      border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 20px;
-      padding: 3px 10px;
-      background: transparent;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .chat-suggestion:hover {
-      background: rgba(201,168,76,0.12);
-      color: rgba(201,168,76,1);
-      border-color: rgba(201,168,76,0.5);
-    }
-    #chat-messages::-webkit-scrollbar { width: 4px; }
-    #chat-messages::-webkit-scrollbar-track { background: transparent; }
-    #chat-messages::-webkit-scrollbar-thumb { background: rgba(255,253,249,0.15); border-radius: 2px; }
-  </style>
-
+  <!-- ── AI Bar Script ────────────────────────────────────────── -->
   <script>
-  (function() {
-    const toggle    = document.getElementById('chat-toggle');
-    const panel     = document.getElementById('chat-panel');
-    const closeBtn  = document.getElementById('chat-close');
-    const input     = document.getElementById('chat-input');
-    const sendBtn   = document.getElementById('chat-send');
-    const messages  = document.getElementById('chat-messages');
-    const sugBox    = document.getElementById('chat-suggestions');
+  (function () {
+    const input    = document.getElementById('ai-input');
+    const sendBtn  = document.getElementById('ai-send');
+    const chipsBox = document.getElementById('ai-chips');
+    const response = document.getElementById('ai-response');
+    const typing   = document.getElementById('ai-typing');
+    const answer   = document.getElementById('ai-answer');
+    const clearBtn = document.getElementById('ai-clear');
 
-    let history = [];   // [{role, content}] for multi-turn context
+    let history = [];
     let sending = false;
 
-    toggle.addEventListener('click', () => {
-      const isOpen = !panel.classList.contains('hidden');
-      panel.classList.toggle('hidden', isOpen);
-      if (!isOpen) { input.focus(); }
-    });
-    closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
-
-    // Suggested questions
-    sugBox.querySelectorAll('.chat-suggestion').forEach(btn => {
+    chipsBox.querySelectorAll('.ai-chip-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        input.value = btn.textContent;
-        sugBox.style.display = 'none';
+        input.value = btn.textContent.trim();
         sendMessage();
       });
     });
 
-    function escHtml(s) {
-      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+    sendBtn.addEventListener('click', sendMessage);
 
-    function appendMsg(role, html) {
-      const div = document.createElement('div');
-      div.className = role === 'user' ? 'chat-user-msg' : 'chat-bot-msg';
-      div.innerHTML = `<p>${html}</p>`;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-      return div;
-    }
-
-    function appendTyping() {
-      const div = document.createElement('div');
-      div.className = 'chat-bot-msg';
-      div.id = 'chat-typing';
-      div.innerHTML = '<div class="chat-typing"><span></span><span></span><span></span></div>';
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
+    clearBtn.addEventListener('click', () => {
+      response.classList.add('hidden');
+      answer.classList.add('hidden');
+      answer.textContent = '';
+      clearBtn.classList.add('hidden');
+      chipsBox.style.display = '';
+      input.value = '';
+      input.focus();
+      history = [];
+    });
 
     async function sendMessage() {
       const text = input.value.trim();
       if (!text || sending) return;
       sending = true;
       input.value = '';
-      sugBox.style.display = 'none';
-
-      appendMsg('user', escHtml(text));
-      history.push({ role: 'user', content: text });
-      appendTyping();
       sendBtn.style.opacity = '0.4';
+      chipsBox.style.display = 'none';
+
+      response.classList.remove('hidden');
+      answer.classList.add('hidden');
+      clearBtn.classList.add('hidden');
+      typing.style.display = 'flex';
+
+      history.push({ role: 'user', content: text });
 
       try {
         const res = await fetch('/api/chat', {
@@ -287,24 +206,29 @@
           body: JSON.stringify({ message: text, history: history.slice(-8) }),
         });
         const data = await res.json();
-        document.getElementById('chat-typing')?.remove();
         const reply = data.reply || 'Sorry, something went wrong.';
-        appendMsg('assistant', escHtml(reply).replace(/\n/g, '<br>'));
         history.push({ role: 'assistant', content: reply });
         if (history.length > 20) history = history.slice(-20);
+        typing.style.display = 'none';
+        answer.innerHTML = escHtml(reply).replace(/\n/g, '<br>');
+        answer.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
       } catch {
-        document.getElementById('chat-typing')?.remove();
-        appendMsg('assistant', 'Connection issue — please try again.');
+        typing.style.display = 'none';
+        answer.textContent = 'Connection issue — please try again.';
+        answer.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
       }
       sending = false;
       sendBtn.style.opacity = '1';
-      input.focus();
     }
 
-    sendBtn.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) sendMessage(); });
+    function escHtml(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
   })();
   </script>
+
 
 </section>
 
